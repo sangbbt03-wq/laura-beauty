@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Hảo Hảo — Hương vị quen thuộc của mọi gia đình Việt</title>
+<meta name="description" content="Hảo Hảo — mì ăn liền được yêu thích nhất Việt Nam. Sợi mì dai ngon, gia vị đậm đà, tiện lợi mọi lúc mọi nơi. Khám phá hương vị đã đồng hành cùng hàng triệu gia đình Việt hơn 20 năm.">
+<meta name="keywords" content="Hảo Hảo, mì ăn liền, mì tôm chua cay, Acecook, mì gói Việt Nam, ẩm thực Việt">
+<meta name="author" content="Hảo Hảo">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hảo Hảo — Hương vị quen thuộc của mọi gia đình Việt">
+<meta property="og:description" content="Sợi mì dai ngon, gia vị đậm đà, tiện lợi mọi lúc mọi nơi. Khám phá thế giới hương vị Hảo Hảo.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1200&q=80">
+<meta property="og:locale" content="vi_VN">
+<!-- Favicon placeholder -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23D6291E'/%3E%3Ctext x='50' y='66' font-size='52' text-anchor='middle' fill='%23F2B705' font-family='sans-serif' font-weight='900'%3EH%3C/text%3E%3C/svg%3E">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,600&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,600&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- AOS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css">
+
+<style>
+  :root{
+    --chili:#D6291E;
+    --chili-deep:#8F1710;
+    --gold:#F2B705;
+    --gold-soft:#FCE18A;
+    --cream:#FFF7E9;
+    --char:#241511;
+    --lime:#8BC53F;
+    --noodle:#F3D27A;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Be Vietnam Pro', sans-serif;
+    background:var(--cream);
+    color:var(--char);
+    overflow-x:hidden;
+  }
+  .font-display{font-family:'Fraunces', serif;}
+
+  ::selection{ background:var(--gold); color:var(--char); }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- Scrollbar ---------- */
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--cream);}
+  ::-webkit-scrollbar-thumb{background:var(--chili); border-radius:10px;}
+
+  /* ---------- Utility: gradients ---------- */
+  .bg-chili-gradient{ background:linear-gradient(135deg, var(--chili) 0%, var(--chili-deep) 55%, #5c0d09 100%); }
+  .bg-gold-gradient{ background:linear-gradient(120deg, var(--gold) 0%, #ffd94d 50%, var(--gold-soft) 100%); }
+  .text-gradient-gold{
+    background:linear-gradient(120deg,#ffe07a,#F2B705 55%,#ffd54d);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- Signature element: the noodle thread ---------- */
+  #noodle-thread{
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    pointer-events:none; z-index:5; opacity:0.9;
+  }
+  #noodle-thread path{
+    fill:none; stroke:var(--gold); stroke-width:3; stroke-linecap:round;
+    filter:drop-shadow(0 0 6px rgba(242,183,5,.55));
+  }
+
+  /* ---------- Navbar ---------- */
+  #navbar{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    transition:all .4s cubic-bezier(.22,.61,.36,1);
+    padding:22px 0;
+  }
+  #navbar.scrolled{
+    padding:12px 0;
+    background:rgba(36,21,17,.85);
+    backdrop-filter:blur(14px) saturate(160%);
+    box-shadow:0 8px 30px rgba(0,0,0,.25);
+  }
+  .nav-link{ position:relative; }
+  .nav-link::after{
+    content:''; position:absolute; left:0; bottom:-6px; height:2px; width:0;
+    background:var(--gold); transition:width .3s ease;
+  }
+  .nav-link:hover::after, .nav-link.active::after{ width:100%; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100svh; position:relative; overflow:hidden;
+    background:radial-gradient(ellipse at 20% 20%, #7a120c 0%, transparent 55%),
+               radial-gradient(ellipse at 85% 75%, #6a0f0a 0%, transparent 50%),
+               linear-gradient(160deg,#3d0906 0%, #1c0503 100%);
+  }
+  .hero-glow{
+    position:absolute; border-radius:50%; filter:blur(70px); opacity:.55; pointer-events:none;
+  }
+  .steam{
+    position:absolute; bottom:0; width:2px; background:linear-gradient(to top, rgba(255,255,255,0), rgba(255,255,255,.5));
+    filter:blur(3px); border-radius:50%;
+    animation:steamRise linear infinite;
+  }
+  @keyframes steamRise{
+    0%{ transform:translateY(0) translateX(0) scaleX(1); opacity:0; }
+    15%{ opacity:.6; }
+    100%{ transform:translateY(-220px) translateX(18px) scaleX(2.4); opacity:0; }
+  }
+  .float{ animation:floaty 6s ease-in-out infinite; }
+  .float-slow{ animation:floaty 9s ease-in-out infinite; }
+  @keyframes floaty{
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(-22px) rotate(4deg); }
+  }
+
+  .reveal-text span{ display:inline-block; opacity:0; transform:translateY(110%) rotate(2deg); }
+
+  .scroll-indicator{
+    width:26px; height:42px; border:2px solid rgba(255,247,233,.6); border-radius:20px;
+  }
+  .scroll-indicator::before{
+    content:''; display:block; width:4px; height:8px; background:var(--gold); border-radius:2px;
+    margin:6px auto 0; animation:scrollDot 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollDot{
+    0%{ transform:translateY(0); opacity:1; } 70%{ transform:translateY(16px); opacity:0; } 100%{opacity:0;}
+  }
+
+  /* ---------- Glassmorphism ---------- */
+  .glass{
+    background:rgba(255,255,255,.10);
+    backdrop-filter:blur(16px) saturate(180%);
+    -webkit-backdrop-filter:blur(16px) saturate(180%);
+    border:1px solid rgba(255,255,255,.18);
+  }
+  .glass-light{
+    background:rgba(255,255,255,.55);
+    backdrop-filter:blur(18px) saturate(180%);
+    border:1px solid rgba(255,255,255,.6);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn-ripple{ position:relative; overflow:hidden; }
+  .btn-ripple .ripple{
+    position:absolute; border-radius:50%; background:rgba(255,255,255,.55);
+    transform:scale(0); animation:rippleAnim .65s ease-out;
+    pointer-events:none;
+  }
+  @keyframes rippleAnim{ to{ transform:scale(3); opacity:0; } }
+
+  .btn-primary{
+    background:linear-gradient(120deg,var(--gold),#ffd94d);
+    color:var(--char); font-weight:800; box-shadow:0 10px 30px -8px rgba(242,183,5,.6);
+    transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-3px) scale(1.02); box-shadow:0 16px 40px -8px rgba(242,183,5,.75); }
+
+  .btn-outline{
+    border:2px solid rgba(255,247,233,.7); color:var(--cream); font-weight:700;
+    transition:all .35s ease;
+  }
+  .btn-outline:hover{ background:var(--cream); color:var(--char); border-color:var(--cream); }
+
+  /* ---------- Blob morph ---------- */
+  .blob{ animation:morph 9s ease-in-out infinite; }
+  @keyframes morph{
+    0%,100%{ border-radius:42% 58% 65% 35% / 45% 40% 60% 55%; }
+    33%{ border-radius:65% 35% 40% 60% / 55% 60% 40% 45%; }
+    66%{ border-radius:35% 65% 55% 45% / 40% 55% 45% 60%; }
+  }
+
+  /* ---------- Product cards ---------- */
+  .product-card{
+    transition:transform .5s cubic-bezier(.22,.61,.36,1), box-shadow .5s ease;
+    transform-style:preserve-3d;
+  }
+  .product-card:hover{ transform:translateY(-14px) rotate(-1deg); box-shadow:0 30px 60px -20px rgba(143,23,16,.4); }
+  .product-card .tag{
+    transform:translateY(-4px) rotate(-3deg);
+  }
+  .product-img-wrap{ overflow:hidden; }
+  .product-img-wrap img{ transition:transform .7s cubic-bezier(.22,.61,.36,1); }
+  .product-card:hover .product-img-wrap img{ transform:scale(1.12) rotate(1deg); }
+
+  /* ---------- Highlight icons ---------- */
+  .highlight-icon{
+    width:76px; height:76px; display:flex; align-items:center; justify-content:center;
+    border-radius:26px; font-size:28px; color:var(--cream);
+    background:linear-gradient(135deg,var(--chili),var(--chili-deep));
+    box-shadow:0 14px 30px -10px rgba(143,23,16,.55);
+    transition:transform .4s cubic-bezier(.22,.61,.36,1);
+  }
+  .highlight-card:hover .highlight-icon{ transform:rotate(-8deg) scale(1.08); }
+
+  /* ---------- Timeline ---------- */
+  .timeline-line{
+    background:repeating-linear-gradient(to right, var(--gold) 0 10px, transparent 10px 20px);
+  }
+  .timeline-num{
+    width:56px; height:56px; border-radius:50%;
+    background:var(--chili); color:var(--gold-soft);
+    font-family:'Fraunces',serif; font-weight:600;
+    display:flex; align-items:center; justify-content:center; font-size:22px;
+    border:4px solid var(--cream); box-shadow:0 6px 20px rgba(143,23,16,.4);
+  }
+
+  /* ---------- Gallery / Lightbox ---------- */
+  .gallery-item{ overflow:hidden; cursor:pointer; position:relative; }
+  .gallery-item img{ transition:transform .6s ease, filter .6s ease; }
+  .gallery-item:hover img{ transform:scale(1.1); }
+  .gallery-item::after{
+    content:'\f00e'; font-family:'Font Awesome 6 Free'; font-weight:900;
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:26px; background:rgba(143,23,16,0); opacity:0; transition:all .4s ease;
+  }
+  .gallery-item:hover::after{ opacity:1; background:rgba(143,23,16,.45); }
+
+  #lightbox{ position:fixed; inset:0; z-index:100; background:rgba(20,8,6,.92); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; }
+  #lightbox.open{ display:flex; }
+  #lightbox img{ max-width:88vw; max-height:82vh; border-radius:14px; box-shadow:0 30px 80px rgba(0,0,0,.6); }
+
+  /* ---------- Testimonials ---------- */
+  .test-track{ display:flex; transition:transform .6s cubic-bezier(.22,.61,.36,1); }
+  .test-slide{ flex:0 0 100%; }
+  @media(min-width:768px){ .test-slide{ flex:0 0 50%; } }
+  @media(min-width:1024px){ .test-slide{ flex:0 0 33.3333%; } }
+
+  /* ---------- FAQ ---------- */
+  .faq-item .faq-answer{ max-height:0; overflow:hidden; transition:max-height .45s cubic-bezier(.22,.61,.36,1), padding .45s ease; }
+  .faq-item.open .faq-answer{ max-height:300px; }
+  .faq-item .chevron{ transition:transform .35s ease; }
+  .faq-item.open .chevron{ transform:rotate(180deg); }
+
+  /* ---------- Counters ---------- */
+  .counter{ font-family:'Fraunces',serif; }
+
+  /* ---------- Progress bar ---------- */
+  #progress-bar{ position:fixed; top:0; left:0; height:4px; background:linear-gradient(90deg,var(--gold),var(--chili)); z-index:60; width:0%; }
+
+  /* ---------- Particles ---------- */
+  #particles{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+  .particle{ position:absolute; border-radius:50%; background:var(--gold); opacity:.5; }
+
+  /* ---------- Section dividers ---------- */
+  .wave-divider{ display:block; width:100%; height:auto; }
+
+  /* ---------- Neon accent ---------- */
+  .neon-text{ text-shadow:0 0 8px rgba(242,183,5,.7), 0 0 22px rgba(242,183,5,.4); }
+
+  /* Focus visibility for accessibility */
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline:3px solid var(--gold); outline-offset:3px; border-radius:6px;
+  }
+
+  .marquee-track{ display:flex; width:max-content; animation:marquee 28s linear infinite; }
+  @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+
+  .sticky-taste{ writing-mode:vertical-rl; }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ================= PROGRESS BAR ================= -->
+<div id="progress-bar" role="presentation" aria-hidden="true"></div>
+
+<!-- ================= SIGNATURE NOODLE THREAD (decorative) ================= -->
+<svg id="noodle-thread" viewBox="0 0 1440 6000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  <path id="noodle-path" d="M -100 0 C 200 150, -150 400, 300 600 S 1500 900, 700 1200 S -200 1500, 500 1900 S 1600 2300, 800 2700 S -100 3100, 600 3500 S 1500 3900, 700 4300 S -200 4700, 500 5100 S 1600 5500, 900 6000" />
+</svg>
+
+<!-- ================= NAVBAR ================= -->
+<header id="navbar">
+  <nav class="max-w-7xl mx-auto px-6 flex items-center justify-between" aria-label="Điều hướng chính">
+    <a href="#hero" class="flex items-center gap-2 font-display text-2xl font-semibold text-[color:var(--cream)]" aria-label="Hảo Hảo - Trang chủ">
+      <span class="w-10 h-10 rounded-full bg-gold-gradient flex items-center justify-center text-[color:var(--chili-deep)] font-black text-lg shadow-lg">H</span>
+      Hảo Hảo
+    </a>
+    <ul class="hidden lg:flex items-center gap-9 text-sm font-semibold tracking-wide text-[color:var(--cream)]" id="nav-links">
+      <li><a href="#story" class="nav-link">Câu chuyện</a></li>
+      <li><a href="#products" class="nav-link">Sản phẩm</a></li>
+      <li><a href="#highlights" class="nav-link">Vì sao yêu thích</a></li>
+      <li><a href="#process" class="nav-link">Cách chế biến</a></li>
+      <li><a href="#gallery" class="nav-link">Hình ảnh</a></li>
+      <li><a href="#faq" class="nav-link">Hỏi đáp</a></li>
+    </ul>
+    <a href="#products" class="btn-ripple btn-primary hidden md:inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm" aria-label="Khám phá sản phẩm Hảo Hảo">
+      Khám phá ngay <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+    </a>
+    <button id="menu-btn" class="lg:hidden text-[color:var(--cream)] text-2xl" aria-label="Mở menu" aria-expanded="false" aria-controls="mobile-menu">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+  </nav>
+  <div id="mobile-menu" class="lg:hidden hidden flex-col gap-1 px-6 pt-4 pb-6 mt-3 mx-4 rounded-2xl glass">
+    <a href="#story" class="py-3 text-[color:var(--cream)] font-semibold border-b border-white/10">Câu chuyện</a>
+    <a href="#products" class="py-3 text-[color:var(--cream)] font-semibold border-b border-white/10">Sản phẩm</a>
+    <a href="#highlights" class="py-3 text-[color:var(--cream)] font-semibold border-b border-white/10">Vì sao yêu thích</a>
+    <a href="#process" class="py-3 text-[color:var(--cream)] font-semibold border-b border-white/10">Cách chế biến</a>
+    <a href="#gallery" class="py-3 text-[color:var(--cream)] font-semibold border-b border-white/10">Hình ảnh</a>
+    <a href="#faq" class="py-3 text-[color:var(--cream)] font-semibold">Hỏi đáp</a>
+  </div>
+</header>
+
+<!-- ================= HERO SECTION ================= -->
+<section id="hero" class="hero flex items-center relative">
+  <div id="particles" aria-hidden="true"></div>
+  <div class="hero-glow w-[520px] h-[520px] bg-[color:var(--chili)] -top-40 -left-40 float-slow" aria-hidden="true"></div>
+  <div class="hero-glow w-[420px] h-[420px] bg-[color:var(--gold)] bottom-0 right-0 float" aria-hidden="true"></div>
+
+  <!-- steam wisps -->
+  <div class="steam" style="left:62%; height:140px; animation-duration:5s;" aria-hidden="true"></div>
+  <div class="steam" style="left:66%; height:110px; animation-duration:6.2s; animation-delay:1.1s;" aria-hidden="true"></div>
+  <div class="steam" style="left:70%; height:130px; animation-duration:4.6s; animation-delay:.4s;" aria-hidden="true"></div>
+
+  <div class="max-w-7xl mx-auto px-6 pt-32 pb-20 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+    <div>
+      <span class="inline-flex items-center gap-2 glass text-[color:var(--gold-soft)] text-xs font-bold tracking-[0.2em] uppercase px-4 py-2 rounded-full mb-8" data-aos="fade-down" data-aos-delay="100">
+        <i class="fa-solid fa-bowl-food" aria-hidden="true"></i> Từ năm 2000 — Vị ngon mỗi ngày
+      </span>
+      <h1 class="reveal-text font-display font-semibold text-[15vw] leading-[0.95] sm:text-6xl md:text-7xl text-[color:var(--cream)] mb-6" id="hero-title">
+        <span class="block overflow-hidden"><span class="inline-block">Hương vị</span></span>
+        <span class="block overflow-hidden"><span class="inline-block text-gradient-gold neon-text">Hảo Hảo</span></span>
+        <span class="block overflow-hidden"><span class="inline-block">quen thuộc.</span></span>
+      </h1>
+      <p class="text-lg md:text-xl text-[color:var(--cream)]/80 max-w-lg mb-10 leading-relaxed" data-aos="fade-up" data-aos-delay="300">
+        Hương vị quen thuộc của mọi gia đình Việt — sợi mì dai ngon, nước súp đậm đà, sẵn sàng trong 3 phút, ở bất cứ đâu bạn cần một bữa ăn ấm lòng.
+      </p>
+      <div class="flex flex-wrap gap-4 mb-14" data-aos="fade-up" data-aos-delay="450">
+        <a href="#products" class="btn-ripple btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full">
+          Khám phá hương vị <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a href="#story" class="btn-outline inline-flex items-center gap-2 px-8 py-4 rounded-full">
+          <i class="fa-solid fa-play" aria-hidden="true"></i> Câu chuyện thương hiệu
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-x-10 gap-y-4" data-aos="fade-up" data-aos-delay="600">
+        <div>
+          <p class="counter text-3xl md:text-4xl font-semibold text-[color:var(--gold-soft)]" data-count="24">0</p>
+          <p class="text-xs text-[color:var(--cream)]/60 uppercase tracking-wider">Năm đồng hành</p>
+        </div>
+        <div>
+          <p class="counter text-3xl md:text-4xl font-semibold text-[color:var(--gold-soft)]" data-count="6">0</p>
+          <p class="text-xs text-[color:var(--cream)]/60 uppercase tracking-wider">Hương vị đặc trưng</p>
+        </div>
+        <div>
+          <p class="counter text-3xl md:text-4xl font-semibold text-[color:var(--gold-soft)]" data-count="100">0</p>
+          <p class="text-xs text-[color:var(--cream)]/60 uppercase tracking-wider">% Gia đình Việt yêu thích<sup>*</sup></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative flex justify-center items-center" data-aos="zoom-in" data-aos-delay="200">
+      <div class="absolute w-[380px] h-[380px] md:w-[460px] md:h-[460px] bg-gold-gradient blob opacity-90"></div>
+      <img src="https://images.unsplash.com/photo-1591814468924-caf88d1232e1?auto=format&fit=crop&w=900&q=80"
+           alt="Tô mì Hảo Hảo tôm chua cay nóng hổi với trứng, rau thơm và ớt tươi"
+           loading="lazy"
+           class="relative z-10 w-[300px] md:w-[420px] rounded-[2rem] shadow-2xl float">
+      <div class="absolute -bottom-6 -left-4 md:-left-10 glass rounded-2xl px-5 py-4 flex items-center gap-3 z-20 float-slow">
+        <i class="fa-solid fa-fire text-[color:var(--gold)] text-2xl" aria-hidden="true"></i>
+        <div>
+          <p class="text-[color:var(--cream)] font-bold text-sm">Vị chua cay đặc trưng</p>
+          <p class="text-[color:var(--cream)]/60 text-xs">Đậm đà khó quên</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#story" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[color:var(--cream)]/70 z-10" aria-label="Cuộn xuống để xem thêm">
+    <span class="text-xs uppercase tracking-[0.25em]">Cuộn xuống</span>
+    <span class="scroll-indicator"></span>
+  </a>
+</section>
+
+<!-- ================= MARQUEE STRIP ================= -->
+<div class="bg-chili-gradient py-3 overflow-hidden relative z-10">
+  <div class="marquee-track text-[color:var(--gold-soft)] font-display font-semibold text-lg whitespace-nowrap">
+    <span class="px-8">Sợi mì dai ngon ✦ Gia vị đậm đà ✦ Tiện lợi mọi lúc ✦ Giá hợp lý ✦ Trọn vị gia đình Việt ✦</span>
+    <span class="px-8">Sợi mì dai ngon ✦ Gia vị đậm đà ✦ Tiện lợi mọi lúc ✦ Giá hợp lý ✦ Trọn vị gia đình Việt ✦</span>
+  </div>
+</div>
+
+<!-- ================= BRAND STORY ================= -->
+<section id="story" class="relative py-28 md:py-36 bg-[color:var(--cream)] overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+    <div data-aos="fade-right">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?auto=format&fit=crop&w=850&q=80"
+             alt="Gia đình Việt quây quần bên bữa ăn ấm cúng"
+             loading="lazy" class="rounded-[2rem] shadow-2xl w-full">
+        <div class="absolute -bottom-8 -right-6 md:-right-10 glass-light rounded-2xl p-6 shadow-xl max-w-[220px]">
+          <p class="font-display text-4xl font-semibold text-[color:var(--chili)]">1995</p>
+          <p class="text-sm text-[color:var(--char)]/70 mt-1">Hành trình mang hương vị Việt đến từng căn bếp bắt đầu</p>
+        </div>
+      </div>
+    </div>
+    <div data-aos="fade-left">
+      <span class="text-xs font-bold uppercase tracking-[0.25em] text-[color:var(--chili)]">Câu chuyện thương hiệu</span>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold mt-4 mb-6 leading-tight">
+        Từ gian bếp nhỏ<br> đến <span class="text-[color:var(--chili)]">triệu bữa ăn</span> mỗi ngày
+      </h2>
+      <p class="text-[color:var(--char)]/75 leading-relaxed mb-5">
+        Hảo Hảo ra đời từ mong muốn giản dị: mang đến một tô mì nóng hổi, đậm đà đúng vị Việt cho bất kỳ ai, ở bất kỳ đâu, chỉ trong ba phút. Từ những ngày đầu khiêm tốn, sợi mì vàng óng cùng gói gia vị chua cay đặc trưng đã lặng lẽ có mặt trong gian bếp của hàng triệu gia đình.
+      </p>
+      <p class="text-[color:var(--char)]/75 leading-relaxed mb-8">
+        Không chỉ là một bữa ăn nhanh, Hảo Hảo đã trở thành một phần ký ức — bữa khuya sau giờ học, bữa trưa vội giữa ca làm, hay đơn giản là món quà ấm lòng ngày mưa. Đó là lý do chúng tôi luôn giữ trọn vẹn hương vị quen thuộc ấy, năm này qua năm khác.
+      </p>
+      <div class="flex flex-wrap gap-8">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-seedling text-2xl text-[color:var(--lime)]" aria-hidden="true"></i>
+          <span class="font-semibold text-sm">Nguyên liệu chọn lọc</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-award text-2xl text-[color:var(--gold)]" aria-hidden="true"></i>
+          <span class="font-semibold text-sm">Tiêu chuẩn an toàn thực phẩm</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-heart text-2xl text-[color:var(--chili)]" aria-hidden="true"></i>
+          <span class="font-semibold text-sm">Được tin dùng qua nhiều thế hệ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURED PRODUCTS ================= -->
+<section id="products" class="relative py-28 md:py-36 bg-[color:var(--char)] overflow-hidden">
+  <div class="absolute -top-24 -left-24 w-96 h-96 bg-[color:var(--chili)]/30 rounded-full blur-3xl" aria-hidden="true"></div>
+  <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-[color:var(--gold)]/20 rounded-full blur-3xl" aria-hidden="true"></div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+      <span class="text-xs font-bold uppercase tracking-[0.25em] text-[color:var(--gold)]">Sản phẩm nổi bật</span>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold text-[color:var(--cream)] mt-4">
+        Mỗi gói mì, một hương vị đáng nhớ
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Card 1 -->
+      <div class="product-card glass rounded-3xl p-6 relative" data-aos="fade-up" data-aos-delay="0">
+        <span class="tag absolute -top-3 left-6 bg-chili-gradient text-[color:var(--gold-soft)] text-[11px] font-bold px-4 py-1.5 rounded-full shadow-lg">Best seller</span>
+        <div class="product-img-wrap rounded-2xl mb-5">
+          <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=500&q=80" alt="Hảo Hảo vị tôm chua cay" loading="lazy" class="w-full h-48 object-cover rounded-2xl">
+        </div>
+        <h3 class="font-display text-xl font-semibold text-[color:var(--cream)] mb-2">Tôm chua cay</h3>
+        <p class="text-[color:var(--cream)]/60 text-sm leading-relaxed mb-4">Hương vị kinh điển làm nên tên tuổi Hảo Hảo — chua thanh, cay nồng, đậm vị tôm.</p>
+        <div class="flex items-center gap-1 text-[color:var(--gold)]" aria-label="Đánh giá 5 trên 5 sao">
+          <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="product-card glass rounded-3xl p-6 relative" data-aos="fade-up" data-aos-delay="100">
+        <div class="product-img-wrap rounded-2xl mb-5">
+          <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=500&q=80" alt="Hảo Hảo vị sườn heo" loading="lazy" class="w-full h-48 object-cover rounded-2xl">
+        </div>
+        <h3 class="font-display text-xl font-semibold text-[color:var(--cream)] mb-2">Sườn heo tỏi phi</h3>
+        <p class="text-[color:var(--cream)]/60 text-sm leading-relaxed mb-4">Nước súp ngọt thanh từ xương hầm, thơm nồng tỏi phi vàng giòn.</p>
+        <div class="flex items-center gap-1 text-[color:var(--gold)]" aria-label="Đánh giá 5 trên 5 sao">
+          <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star-half-stroke" aria-hidden="true"></i>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="product-card glass rounded-3xl p-6 relative" data-aos="fade-up" data-aos-delay="200">
+        <span class="tag absolute -top-3 left-6 bg-gold-gradient text-[color:var(--char)] text-[11px] font-bold px-4 py-1.5 rounded-full shadow-lg">Mới</span>
+        <div class="product-img-wrap rounded-2xl mb-5">
+          <img src="https://images.unsplash.com/photo-1569058242567-93de6f36f8e6?auto=format&fit=crop&w=500&q=80" alt="Hảo Hảo vị gà" loading="lazy" class="w-full h-48 object-cover rounded-2xl">
+        </div>
+        <h3 class="font-display text-xl font-semibold text-[color:var(--cream)] mb-2">Gà hầm sả</h3>
+        <p class="text-[color:var(--cream)]/60 text-sm leading-relaxed mb-4">Vị gà đậm đà quyện cùng sả tươi thơm dịu, dễ ăn cho cả gia đình.</p>
+        <div class="flex items-center gap-1 text-[color:var(--gold)]" aria-label="Đánh giá 4.5 trên 5 sao">
+          <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-regular fa-star" aria-hidden="true"></i>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="product-card glass rounded-3xl p-6 relative" data-aos="fade-up" data-aos-delay="300">
+        <div class="product-img-wrap rounded-2xl mb-5">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=500&q=80" alt="Hảo Hảo vị chay rau nấm" loading="lazy" class="w-full h-48 object-cover rounded-2xl">
+        </div>
+        <h3 class="font-display text-xl font-semibold text-[color:var(--cream)] mb-2">Chay rau nấm</h3>
+        <p class="text-[color:var(--cream)]/60 text-sm leading-relaxed mb-4">Thanh nhẹ từ nấm và rau củ, lựa chọn lý tưởng cho ngày ăn chay.</p>
+        <div class="flex items-center gap-1 text-[color:var(--gold)]" aria-label="Đánh giá 4.5 trên 5 sao">
+          <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-regular fa-star-half-stroke" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HIGHLIGHTS ================= -->
+<section id="highlights" class="relative py-28 md:py-36 bg-[color:var(--cream)]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+      <span class="text-xs font-bold uppercase tracking-[0.25em] text-[color:var(--chili)]">Vì sao được yêu thích</span>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold mt-4">Bốn lý do giữ chân người Việt</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="highlight-card text-center p-8 rounded-3xl bg-white shadow-lg" data-aos="fade-up" data-aos-delay="0">
+        <div class="highlight-icon mx-auto mb-6"><i class="fa-solid fa-wheat-awn" aria-hidden="true"></i></div>
+        <h3 class="font-display text-xl font-semibold mb-2">Sợi mì dai ngon</h3>
+        <p class="text-[color:var(--char)]/65 text-sm leading-relaxed">Sợi mì vàng óng, dai mềm vừa miệng, giữ được độ ngon dù chan nước hay trộn khô.</p>
+      </div>
+      <div class="highlight-card text-center p-8 rounded-3xl bg-white shadow-lg" data-aos="fade-up" data-aos-delay="100">
+        <div class="highlight-icon mx-auto mb-6"><i class="fa-solid fa-pepper-hot" aria-hidden="true"></i></div>
+        <h3 class="font-display text-xl font-semibold mb-2">Gia vị đậm đà</h3>
+        <p class="text-[color:var(--char)]/65 text-sm leading-relaxed">Công thức gia vị đặc trưng, cân bằng giữa chua – cay – mặn – ngọt trong từng muỗng nước.</p>
+      </div>
+      <div class="highlight-card text-center p-8 rounded-3xl bg-white shadow-lg" data-aos="fade-up" data-aos-delay="200">
+        <div class="highlight-icon mx-auto mb-6"><i class="fa-solid fa-clock" aria-hidden="true"></i></div>
+        <h3 class="font-display text-xl font-semibold mb-2">Tiện lợi</h3>
+        <p class="text-[color:var(--char)]/65 text-sm leading-relaxed">Chỉ 3 phút cho một bữa ăn nóng hổi — dù ở nhà, văn phòng hay trên những chuyến đi xa.</p>
+      </div>
+      <div class="highlight-card text-center p-8 rounded-3xl bg-white shadow-lg" data-aos="fade-up" data-aos-delay="300">
+        <div class="highlight-icon mx-auto mb-6"><i class="fa-solid fa-tags" aria-hidden="true"></i></div>
+        <h3 class="font-display text-xl font-semibold mb-2">Giá hợp lý</h3>
+        <p class="text-[color:var(--char)]/65 text-sm leading-relaxed">Một bữa ăn ngon, chất lượng ổn định với mức giá phù hợp cho mọi gia đình Việt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS TIMELINE ================= -->
+<section id="process" class="relative py-28 md:py-36 bg-chili-gradient overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="text-center max-w-2xl mx-auto mb-20" data-aos="fade-up">
+      <span class="text-xs font-bold uppercase tracking-[0.25em] text-[color:var(--gold)]">Chỉ 4 bước</span>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold text-[color:var(--cream)] mt-4">Từ gói mì đến tô mì thơm lừng</h2>
+    </div>
+
+    <div class="relative">
+      <div class="hidden lg:block absolute top-7 left-0 right-0 h-0.5 timeline-line" aria-hidden="true"></div>
+      <div class="grid lg:grid-cols-4 gap-12 lg:gap-8">
+        <div class="text-center" data-aos="fade-up" data-aos-delay="0">
+          <div class="timeline-num mx-auto mb-6">01</div>
+          <i class="fa-solid fa-box-open text-3xl text-[color:var(--gold)] mb-3" aria-hidden="true"></i>
+          <h3 class="font-display text-lg font-semibold text-[color:var(--cream)] mb-2">Mở gói mì</h3>
+          <p class="text-[color:var(--cream)]/65 text-sm">Bóc mì và các gói gia vị, cho vào tô sạch.</p>
+        </div>
+        <div class="text-center" data-aos="fade-up" data-aos-delay="150">
+          <div class="timeline-num mx-auto mb-6">02</div>
+          <i class="fa-solid fa-droplet text-3xl text-[color:var(--gold)] mb-3" aria-hidden="true"></i>
+          <h3 class="font-display text-lg font-semibold text-[color:var(--cream)] mb-2">Chan nước sôi</h3>
+          <p class="text-[color:var(--cream)]/65 text-sm">Đổ khoảng 400ml nước sôi ngập mặt mì.</p>
+        </div>
+        <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+          <div class="timeline-num mx-auto mb-6">03</div>
+          <i class="fa-solid fa-hourglass-half text-3xl text-[color:var(--gold)] mb-3" aria-hidden="true"></i>
+          <h3 class="font-display text-lg font-semibold text-[color:var(--cream)] mb-2">Đậy nắp chờ 3 phút</h3>
+          <p class="text-[color:var(--cream)]/65 text-sm">Đậy kín để sợi mì chín mềm, thấm đều gia vị.</p>
+        </div>
+        <div class="text-center" data-aos="fade-up" data-aos-delay="450">
+          <div class="timeline-num mx-auto mb-6">04</div>
+          <i class="fa-solid fa-utensils text-3xl text-[color:var(--gold)] mb-3" aria-hidden="true"></i>
+          <h3 class="font-display text-lg font-semibold text-[color:var(--cream)] mb-2">Trộn đều & thưởng thức</h3>
+          <p class="text-[color:var(--cream)]/65 text-sm">Trộn đều và thêm rau, trứng tuỳ thích. Ngon miệng!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery" class="relative py-28 md:py-36 bg-[color:var(--cream)]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+      <span class="text-xs font-bold uppercase tracking-[0.25em] text-[color:var(--chili)]">Thư viện hình ảnh</span>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold mt-4">Khoảnh khắc cùng Hảo Hảo</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[180px]" id="gallery-grid">
+      <div class="gallery-item rounded-2xl row-span-2" data-aos="zoom-in" data-aos-delay="0">
+        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=700&q=80" alt="Tô mì Hảo Hảo nóng hổi bốc khói" loading="lazy" class="w-full h-full object-cover rounded-2xl">
+      </div>
+      <div class="gallery-item rounded-2xl" data-aos="zoom-in" data-aos-delay="100">
+        <img src="https://images.unsplash.com/photo-1587411768638-ec71adfe3d69?auto=format&fit=crop&w=700&q=80" alt="Gói mì ăn liền được chuẩn bị" loading="lazy" class="w-full h-full object-cover rounded-2xl">
+      </div>
+      <div class="gallery-item rounded-2xl" data-aos="zoom-in" data-aos-delay="150">
+        <img src="https://images.unsplash.com/photo-1631709497146-a239ef373cf1?auto=format&fit=crop&w=700&q=80" alt="Mì trộn cay với rau thơm" loading="lazy" class="w-full h-full object-cover rounded-2xl">
+      </div>
+      <div class="gallery-item rounded-2xl row-span-2" data-aos="zoom-in" data-aos-delay="200">
+        <img src="https://images.unsplash.com/photo-1543826173-1ad55d3d8c47?auto=format&fit=crop&w=700&q=80" alt="Đũa gắp sợi mì từ tô nóng" loading="lazy" class="w-full h-full object-cover rounded-2xl">
+      </div>
+      <div class="gallery-item rounded-2xl" data-aos="zoom-in" data-aos-delay="250">
+        <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=700&q=80" alt="Nguyên liệu tươi cho món mì" loading="lazy" class="w-full h-full object-cover rounded-2xl">
+      </div>
+      <div class="gallery-item rounded-2xl" data-aos="zoom-in" data-aos-delay="300">
+        <img src="https://images.unsplash.com/photo-1626804475297-411295ee1c85?auto=format&fit=crop&w=700&q=80" alt="Bữa ăn gia đình quây quần" loading="lazy" class="w-full h-full object-cover rounded-2xl">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh phóng to">
+  <button id="lightbox-close" class="absolute top-6 right-6 text-white text-3xl w-12 h-12 flex items-center justify-center rounded-full glass" aria-label="Đóng ảnh phóng to">
+    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+  </button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section id="feedback" class="relative py-28 md:py-36 bg-[color:var(--char)] overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+      <span class="text-xs font-bold uppercase tracking-[0.25em] text-[color:var(--gold)]">Cảm nhận khách hàng</span>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold text-[color:var(--cream)] mt-4">Triệu người, một hương vị nhớ mãi</h2>
+    </div>
+
+    <div class="relative">
+      <div class="overflow-hidden">
+        <div class="test-track" id="test-track">
+          <div class="test-slide px-4">
+            <div class="glass rounded-3xl p-8 h-full">
+              <div class="flex items-center gap-1 text-[color:var(--gold)] mb-4" aria-hidden="true">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-[color:var(--cream)]/80 mb-6 leading-relaxed">"Từ hồi sinh viên đến khi đi làm, tủ bếp nhà mình lúc nào cũng có vài gói Hảo Hảo dự phòng. Vị chua cay không thể lẫn vào đâu được."</p>
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full bg-gold-gradient flex items-center justify-center font-bold text-[color:var(--char)]">M</div>
+                <div>
+                  <p class="text-[color:var(--cream)] font-semibold text-sm">Minh Anh</p>
+                  <p class="text-[color:var(--cream)]/50 text-xs">TP. Hồ Chí Minh</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="test-slide px-4">
+            <div class="glass rounded-3xl p-8 h-full">
+              <div class="flex items-center gap-1 text-[color:var(--gold)] mb-4" aria-hidden="true">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-[color:var(--cream)]/80 mb-6 leading-relaxed">"Đi công tác xa mấy cũng mang theo vài gói. Chỉ cần nước sôi là có ngay bữa ăn nóng hổi, đúng vị nhà."</p>
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full bg-gold-gradient flex items-center justify-center font-bold text-[color:var(--char)]">T</div>
+                <div>
+                  <p class="text-[color:var(--cream)] font-semibold text-sm">Thanh Tùng</p>
+                  <p class="text-[color:var(--cream)]/50 text-xs">Hà Nội</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="test-slide px-4">
+            <div class="glass rounded-3xl p-8 h-full">
+              <div class="flex items-center gap-1 text-[color:var(--gold)] mb-4" aria-hidden="true">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star-half-stroke"></i>
+              </div>
+              <p class="text-[color:var(--cream)]/80 mb-6 leading-relaxed">"Bé nhà mình rất thích mì Hảo Hảo trộn thêm trứng và rau. Bữa sáng cuối tuần thành ra dễ dàng hơn hẳn."</p>
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full bg-gold-gradient flex items-center justify-center font-bold text-[color:var(--char)]">H</div>
+                <div>
+                  <p class="text-[color:var(--cream)] font-semibold text-sm">Hồng Nhung</p>
+                  <p class="text-[color:var(--cream)]/50 text-xs">Đà Nẵng</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="test-slide px-4">
+            <div class="glass rounded-3xl p-8 h-full">
+              <div class="flex items-center gap-1 text-[color:var(--gold)] mb-4" aria-hidden="true">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="text-[color:var(--cream)]/80 mb-6 leading-relaxed">"Giá rẻ mà chất lượng luôn ổn định qua nhiều năm. Đây là món 'cứu đói' đáng tin cậy nhất của tụi mình."</p>
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full bg-gold-gradient flex items-center justify-center font-bold text-[color:var(--char)]">K</div>
+                <div>
+                  <p class="text-[color:var(--cream)] font-semibold text-sm">Khánh Duy</p>
+                  <p class="text-[color:var(--cream)]/50 text-xs">Cần Thơ</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center gap-4 mt-10">
+        <button id="test-prev" class="w-12 h-12 rounded-full glass text-[color:var(--cream)] flex items-center justify-center hover:bg-[color:var(--gold)] hover:text-[color:var(--char)] transition" aria-label="Đánh giá trước">
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+        </button>
+        <button id="test-next" class="w-12 h-12 rounded-full glass text-[color:var(--cream)] flex items-center justify-center hover:bg-[color:var(--gold)] hover:text-[color:var(--char)] transition" aria-label="Đánh giá tiếp theo">
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" class="relative py-28 md:py-36 bg-[color:var(--cream)]">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <span class="text-xs font-bold uppercase tracking-[0.25em] text-[color:var(--chili)]">Câu hỏi thường gặp</span>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold mt-4">Giải đáp cùng Hảo Hảo</h2>
+    </div>
+
+    <div class="space-y-4" id="faq-list">
+      <div class="faq-item bg-white rounded-2xl shadow-sm border border-black/5" data-aos="fade-up">
+        <button class="faq-question w-full flex items-center justify-between gap-4 px-6 py-5 text-left font-semibold" aria-expanded="false">
+          Mì Hảo Hảo có bao nhiêu hương vị?
+          <i class="fa-solid fa-chevron-down chevron text-[color:var(--chili)]" aria-hidden="true"></i>
+        </button>
+        <div class="faq-answer px-6 text-[color:var(--char)]/70 text-sm leading-relaxed">
+          <p class="pb-5">Hiện tại Hảo Hảo có nhiều hương vị quen thuộc như tôm chua cay, sườn heo tỏi phi, gà hầm sả và chay rau nấm, cùng một số phiên bản theo mùa để bạn thỏa sức lựa chọn.</p>
+        </div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl shadow-sm border border-black/5" data-aos="fade-up" data-aos-delay="80">
+        <button class="faq-question w-full flex items-center justify-between gap-4 px-6 py-5 text-left font-semibold" aria-expanded="false">
+          Thời gian chế biến mất bao lâu?
+          <i class="fa-solid fa-chevron-down chevron text-[color:var(--chili)]" aria-hidden="true"></i>
+        </button>
+        <div class="faq-answer px-6 text-[color:var(--char)]/70 text-sm leading-relaxed">
+          <p class="pb-5">Chỉ cần khoảng 3 phút sau khi chan nước sôi và đậy nắp là bạn đã có ngay một tô mì nóng hổi, sẵn sàng thưởng thức.</p>
+        </div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl shadow-sm border border-black/5" data-aos="fade-up" data-aos-delay="160">
+        <button class="faq-question w-full flex items-center justify-between gap-4 px-6 py-5 text-left font-semibold" aria-expanded="false">
+          Có thể mua Hảo Hảo ở đâu?
+          <i class="fa-solid fa-chevron-down chevron text-[color:var(--chili)]" aria-hidden="true"></i>
+        </button>
+        <div class="faq-answer px-6 text-[color:var(--char)]/70 text-sm leading-relaxed">
+          <p class="pb-5">Sản phẩm có mặt rộng rãi tại các siêu thị, cửa hàng tiện lợi, chợ truyền thống và các sàn thương mại điện tử trên toàn quốc.</p>
+        </div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl shadow-sm border border-black/5" data-aos="fade-up" data-aos-delay="240">
+        <button class="faq-question w-full flex items-center justify-between gap-4 px-6 py-5 text-left font-semibold" aria-expanded="false">
+          Có phiên bản phù hợp cho người ăn chay không?
+          <i class="fa-solid fa-chevron-down chevron text-[color:var(--chili)]" aria-hidden="true"></i>
+        </button>
+        <div class="faq-answer px-6 text-[color:var(--char)]/70 text-sm leading-relaxed">
+          <p class="pb-5">Có. Hảo Hảo chay rau nấm được chế biến hoàn toàn từ nguyên liệu thực vật, phù hợp cho người ăn chay hoặc muốn dùng bữa nhẹ nhàng, thanh đạm.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="relative py-28 md:py-32 bg-chili-gradient overflow-hidden">
+  <div class="hero-glow w-96 h-96 bg-[color:var(--gold)] top-0 left-1/4 opacity-30" aria-hidden="true"></div>
+  <div class="max-w-4xl mx-auto px-6 text-center relative z-10" data-aos="zoom-in">
+    <i class="fa-solid fa-bowl-rice text-5xl text-[color:var(--gold)] mb-6" aria-hidden="true"></i>
+    <h2 class="font-display text-4xl md:text-6xl font-semibold text-[color:var(--cream)] mb-6 leading-tight">
+      Sẵn sàng cho tô mì<br>nóng hổi tiếp theo?
+    </h2>
+    <p class="text-[color:var(--cream)]/75 max-w-xl mx-auto mb-10 text-lg">
+      Ghé cửa hàng gần nhất hoặc đặt hàng trực tuyến để trải nghiệm trọn vẹn hương vị Hảo Hảo ngay hôm nay.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="#products" class="btn-ripple btn-primary inline-flex items-center gap-2 px-9 py-4 rounded-full text-lg">
+        Tìm cửa hàng gần bạn <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+      </a>
+      <a href="#story" class="btn-outline inline-flex items-center gap-2 px-9 py-4 rounded-full text-lg">
+        Tìm hiểu thêm
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-[color:var(--char)] text-[color:var(--cream)]/70 pt-20 pb-8 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-4 gap-12 mb-14">
+      <div>
+        <a href="#hero" class="flex items-center gap-2 font-display text-2xl font-semibold text-[color:var(--cream)] mb-4">
+          <span class="w-9 h-9 rounded-full bg-gold-gradient flex items-center justify-center text-[color:var(--chili-deep)] font-black">H</span>
+          Hảo Hảo
+        </a>
+        <p class="text-sm leading-relaxed mb-6">Hương vị quen thuộc của mọi gia đình Việt — đồng hành cùng bạn trong từng bữa ăn, mỗi ngày.</p>
+        <div class="flex gap-3">
+          <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-[color:var(--gold)] hover:text-[color:var(--char)] transition"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-[color:var(--gold)] hover:text-[color:var(--char)] transition"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="YouTube" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-[color:var(--gold)] hover:text-[color:var(--char)] transition"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TikTok" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-[color:var(--gold)] hover:text-[color:var(--char)] transition"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-[color:var(--cream)] font-semibold mb-5">Khám phá</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#story" class="hover:text-[color:var(--gold)] transition">Câu chuyện thương hiệu</a></li>
+          <li><a href="#products" class="hover:text-[color:var(--gold)] transition">Sản phẩm</a></li>
+          <li><a href="#process" class="hover:text-[color:var(--gold)] transition">Cách chế biến</a></li>
+          <li><a href="#gallery" class="hover:text-[color:var(--gold)] transition">Thư viện hình ảnh</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-[color:var(--cream)] font-semibold mb-5">Hỗ trợ</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#faq" class="hover:text-[color:var(--gold)] transition">Câu hỏi thường gặp</a></li>
+          <li><a href="#" class="hover:text-[color:var(--gold)] transition">Liên hệ</a></li>
+          <li><a href="#" class="hover:text-[color:var(--gold)] transition">Chính sách bảo mật</a></li>
+          <li><a href="#" class="hover:text-[color:var(--gold)] transition">Điều khoản sử dụng</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-[color:var(--cream)] font-semibold mb-5">Liên hệ</h3>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-[color:var(--gold)]" aria-hidden="true"></i> TP. Hồ Chí Minh, Việt Nam</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-[color:var(--gold)]" aria-hidden="true"></i> 1900 xxxx</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-[color:var(--gold)]" aria-hidden="true"></i> hello@haohao-example.vn</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-[color:var(--cream)]/40">
+      <p>&copy; 2026 Hảo Hảo. Trang minh hoạ được thực hiện cho mục đích trình diễn thiết kế.</p>
+      <p>Thiết kế với <i class="fa-solid fa-heart text-[color:var(--chili)]" aria-hidden="true"></i> dành cho hương vị Việt.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ---------- AOS init ---------- */
+  AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 60 });
+
+  /* ---------- Navbar scroll state ---------- */
+  const navbar = document.getElementById('navbar');
+  const progressBar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+  });
+
+  /* ---------- Mobile menu ---------- */
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('flex');
+    mobileMenu.classList.toggle('hidden');
+    menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden');
+    mobileMenu.classList.remove('flex');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }));
+
+  /* ---------- Active nav link on scroll ---------- */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinksAll = document.querySelectorAll('#nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 140;
+      if (window.scrollY >= top) current = sec.getAttribute('id');
+    });
+    navLinksAll.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  });
+
+  /* ---------- Reveal text (split letters/words) hero ---------- */
+  document.querySelectorAll('.reveal-text .inline-block').forEach((el, i) => {
+    const words = el.textContent.split(' ');
+    el.innerHTML = words.map(w => `<span style="display:inline-block; overflow:hidden;"><span style="display:inline-block;">${w}&nbsp;</span></span>`).join('');
+  });
+  gsap.to('.reveal-text .inline-block > span', {
+    y: 0, rotate: 0, opacity: 1, duration: 1, ease: 'power4.out', stagger: 0.06, delay: 0.3
+  });
+
+  /* ---------- GSAP ScrollTrigger: noodle thread draw ---------- */
+  gsap.registerPlugin(ScrollTrigger);
+  const noodlePath = document.getElementById('noodle-path');
+  const pathLength = noodlePath.getTotalLength();
+  noodlePath.style.strokeDasharray = pathLength;
+  noodlePath.style.strokeDashoffset = pathLength;
+
+  gsap.to(noodlePath, {
+    strokeDashoffset: 0,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: document.body,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 0.6
+    }
+  });
+
+  function positionThread(){
+    const svg = document.getElementById('noodle-thread');
+    svg.setAttribute('viewBox', `0 0 1440 ${document.body.scrollHeight}`);
+    noodlePath.setAttribute('d', noodlePath.getAttribute('d'));
+  }
+  window.addEventListener('resize', positionThread);
+  positionThread();
+
+  /* ---------- Hero parallax on mouse move ---------- */
+  const hero = document.getElementById('hero');
+  hero.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 24;
+    const y = (e.clientY / window.innerHeight - 0.5) * 24;
+    gsap.to('.hero-glow', { x: x, y: y, duration: 1.2, ease: 'power2.out' });
+  });
+
+  /* ---------- Particles ---------- */
+  const particlesEl = document.getElementById('particles');
+  for (let i = 0; i < 26; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 5 + 2;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.opacity = Math.random() * 0.5 + 0.15;
+    particlesEl.appendChild(p);
+    gsap.to(p, {
+      y: (Math.random() - 0.5) * 160,
+      x: (Math.random() - 0.5) * 100,
+      duration: Math.random() * 6 + 5,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      delay: Math.random() * 3
+    });
+  }
+
+  /* ---------- Button ripple ---------- */
+  document.querySelectorAll('.btn-ripple').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      const rect = this.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      const size = Math.max(rect.width, rect.height);
+      ripple.classList.add('ripple');
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 650);
+    });
+  });
+
+  /* ---------- Animated counters ---------- */
+  const counters = document.querySelectorAll('.counter');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        gsap.to(el, {
+          innerText: target,
+          duration: 2,
+          ease: 'power1.out',
+          snap: { innerText: 1 },
+          onUpdate: function () { el.innerText = Math.round(this.targets()[0].innerText); }
+        });
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.6 });
+  counters.forEach(c => counterObserver.observe(c));
+
+  /* ---------- Lightbox ---------- */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('.gallery-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src.replace('w=700', 'w=1400');
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('open');
+    });
+  });
+  document.getElementById('lightbox-close').addEventListener('click', () => lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+
+  /* ---------- Testimonial slider ---------- */
+  const track = document.getElementById('test-track');
+  const slides = track.children.length;
+  let slideIndex = 0;
+  function getPerView(){
+    if (window.innerWidth >= 1024) return 3;
+    if (window.innerWidth >= 768) return 2;
+    return 1;
+  }
+  function updateSlider(){
+    const perView = getPerView();
+    const maxIndex = Math.max(0, slides - perView);
+    if (slideIndex > maxIndex) slideIndex = maxIndex;
+    const pct = (100 / perView) * slideIndex;
+    track.style.transform = `translateX(-${pct}%)`;
+  }
+  document.getElementById('test-next').addEventListener('click', () => {
+    const perView = getPerView();
+    const maxIndex = Math.max(0, slides - perView);
+    slideIndex = slideIndex >= maxIndex ? 0 : slideIndex + 1;
+    updateSlider();
+  });
+  document.getElementById('test-prev').addEventListener('click', () => {
+    const perView = getPerView();
+    const maxIndex = Math.max(0, slides - perView);
+    slideIndex = slideIndex <= 0 ? maxIndex : slideIndex - 1;
+    updateSlider();
+  });
+  window.addEventListener('resize', updateSlider);
+  updateSlider();
+
+  /* Auto-play testimonials */
+  setInterval(() => { document.getElementById('test-next').click(); }, 6000);
+
+  /* ---------- FAQ accordion ---------- */
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-question');
+    btn.addEventListener('click', () => {
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+});
+</script>
+</body>
+</html>
