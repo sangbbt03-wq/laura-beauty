@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Lộ Trình 28 Ngày Cho Người Mới</title>
+<meta name="theme-color" content="#0D0D0D">
+<style>
+:root{
+  --bg:#0D0D0D;
+  --card:#1A1A1A;
+  --card2:#141414;
+  --pink:#FF4FA3;
+  --pink2:#FF8FC4;
+  --text:#F8F8F8;
+  --muted:#9A9A9A;
+  --line:rgba(255,255,255,.08);
+  --grad: linear-gradient(135deg,#FF4FA3 0%, #FF8FC4 45%, #C64BFF 100%);
+  --radius:18px;
+  --shadow: 0 10px 30px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  padding-bottom:78px;
+}
+img{max-width:100%; display:block;}
+a{color:inherit; text-decoration:none;}
+button{font-family:inherit; cursor:pointer;}
+.container{max-width:1180px; margin:0 auto; padding:0 20px;}
+h1,h2,h3,h4{font-weight:800; letter-spacing:-0.02em; line-height:1.15;}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--pink2); margin-bottom:14px;
+}
+.eyebrow::before{content:""; width:18px; height:2px; background:var(--grad); border-radius:2px;}
+.section{padding:74px 0;}
+.section-head{max-width:640px; margin-bottom:40px;}
+.section-head h2{font-size:clamp(26px,4vw,38px); margin-bottom:12px;}
+.section-head p{color:var(--muted); font-size:15.5px;}
+
+/* ---------- glass card ---------- */
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)), var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  backdrop-filter: blur(6px);
+}
+
+/* ---------- progress bar ---------- */
+#readProgress{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:var(--grad); z-index:999; transition:width .1s linear;
+}
+#readProgressLabel{
+  position:fixed; top:10px; right:14px; z-index:999;
+  font-size:11px; font-weight:700; color:var(--pink2);
+  background:rgba(13,13,13,.7); border:1px solid var(--line);
+  padding:4px 9px; border-radius:20px; backdrop-filter:blur(6px);
+}
+
+/* ---------- top bar (mobile) ---------- */
+.topbar{
+  position:sticky; top:0; z-index:80;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 20px; background:rgba(13,13,13,.85); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar .logo{font-weight:800; font-size:15px; letter-spacing:-0.01em;}
+.topbar .logo span{color:var(--pink);}
+.menu-btn{
+  width:38px; height:38px; border-radius:10px; border:1px solid var(--line);
+  background:var(--card); display:flex; align-items:center; justify-content:center;
+  color:var(--text); font-size:16px;
+}
+
+/* ---------- sidebar (desktop) ---------- */
+.sidebar{
+  position:fixed; top:0; left:0; height:100vh; width:236px;
+  background:#0A0A0A; border-right:1px solid var(--line);
+  padding:26px 18px; display:none; flex-direction:column; gap:4px; z-index:90;
+  overflow-y:auto;
+}
+.sidebar .logo{font-weight:800; font-size:17px; margin-bottom:28px; padding:0 10px;}
+.sidebar .logo span{color:var(--pink);}
+.sidebar a{
+  display:flex; align-items:center; gap:11px; padding:11px 12px; border-radius:12px;
+  color:var(--muted); font-size:14px; font-weight:600; transition:.2s;
+}
+.sidebar a:hover, .sidebar a.active{background:rgba(255,79,163,.1); color:var(--text);}
+.sidebar a.active{color:var(--pink2);}
+
+/* ---------- bottom nav (mobile) ---------- */
+.bottomnav{
+  position:fixed; bottom:0; left:0; right:0; z-index:90;
+  display:flex; justify-content:space-around; align-items:center;
+  background:rgba(17,17,17,.92); backdrop-filter:blur(14px);
+  border-top:1px solid var(--line); padding:8px 4px 10px;
+}
+.bottomnav a{
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+  font-size:10px; color:var(--muted); font-weight:600; flex:1; padding:4px 0;
+}
+.bottomnav a .ic{font-size:18px;}
+.bottomnav a.active{color:var(--pink2);}
+
+body.has-sidebar{margin-left:0;}
+@media(min-width:960px){
+  .sidebar{display:flex;}
+  .topbar{display:none;}
+  .bottomnav{display:none;}
+  body{margin-left:236px; padding-bottom:0;}
+}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative; padding:64px 0 50px; overflow:hidden;
+}
+.hero::before{
+  content:""; position:absolute; top:-160px; right:-140px; width:420px; height:420px;
+  background:var(--grad); filter:blur(120px); opacity:.35; border-radius:50%;
+}
+.hero-grid{
+  display:grid; grid-template-columns:1fr; gap:34px; align-items:center; position:relative;
+}
+@media(min-width:860px){ .hero-grid{grid-template-columns:1.1fr .9fr;} }
+.hero h1{font-size:clamp(32px,6vw,50px); margin-bottom:16px;}
+.hero h1 em{font-style:normal; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.hero p.sub{color:var(--muted); font-size:16px; max-width:480px; margin-bottom:26px;}
+.hero-stats{display:flex; gap:22px; margin-bottom:28px; flex-wrap:wrap;}
+.hero-stats div{font-size:22px; font-weight:800;}
+.hero-stats span{display:block; font-size:11.5px; color:var(--muted); font-weight:600; margin-top:2px;}
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:15px 26px; border-radius:100px;
+  font-weight:700; font-size:14.5px; border:none;
+}
+.btn-primary{background:var(--grad); color:#160812; box-shadow:0 8px 24px rgba(255,79,163,.35);}
+.btn-ghost{background:transparent; border:1px solid var(--line); color:var(--text);}
+.hero-visual{
+  aspect-ratio:4/5; border-radius:24px; background:
+    linear-gradient(160deg, rgba(255,79,163,.25), rgba(198,75,255,.15)), var(--card);
+  border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.hero-visual .ph{font-size:13px; color:var(--muted); text-align:center; padding:20px;}
+.hero-visual .badge{
+  position:absolute; bottom:16px; left:16px; right:16px;
+  background:rgba(13,13,13,.75); backdrop-filter:blur(8px); border:1px solid var(--line);
+  border-radius:14px; padding:12px 14px; font-size:12.5px; font-weight:700;
+}
+
+/* ---------- commitment section ---------- */
+.commit-grid{display:grid; grid-template-columns:1fr; gap:14px;}
+@media(min-width:700px){ .commit-grid{grid-template-columns:1fr 1fr;} }
+.commit-item{
+  padding:18px 20px; display:flex; gap:12px; align-items:flex-start;
+}
+.commit-item .tick{
+  width:26px; height:26px; border-radius:50%; background:var(--grad); flex:none;
+  display:flex; align-items:center; justify-content:center; font-size:13px; color:#160812; font-weight:900;
+}
+.commit-item p{font-size:14.5px;}
+
+/* ---------- knowledge cards ---------- */
+.grid-3{display:grid; grid-template-columns:1fr; gap:16px;}
+@media(min-width:700px){.grid-3{grid-template-columns:1fr 1fr;}}
+@media(min-width:1040px){.grid-3{grid-template-columns:1fr 1fr 1fr;}}
+.know-card{padding:22px;}
+.know-card .ic{
+  width:44px; height:44px; border-radius:12px; background:rgba(255,79,163,.12);
+  display:flex; align-items:center; justify-content:center; font-size:21px; margin-bottom:14px;
+}
+.know-card h4{font-size:16px; margin-bottom:8px;}
+.know-card p{font-size:13.5px; color:var(--muted);}
+.know-card .ex{margin-top:10px; font-size:12.5px; padding:9px 11px; background:rgba(255,255,255,.03); border-radius:10px; border-left:2px solid var(--pink);}
+
+/* ---------- accordion (warmup / faq) ---------- */
+.accordion-item{border-bottom:1px solid var(--line);}
+.accordion-item:last-child{border-bottom:none;}
+.accordion-head{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:18px 4px; font-weight:700; font-size:14.5px;
+}
+.accordion-head .plus{font-size:18px; color:var(--pink2); transition:.25s; flex:none;}
+.accordion-item.open .plus{transform:rotate(45deg);}
+.accordion-body{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+.accordion-body-in{padding:0 4px 18px; font-size:13.5px; color:var(--muted);}
+.accordion-body-in ul{padding-left:18px; margin-top:6px;}
+.accordion-body-in li{margin-bottom:4px;}
+
+/* ---------- program (giao an) ---------- */
+.week-tabs{display:flex; gap:8px; overflow-x:auto; margin-bottom:22px; padding-bottom:4px;}
+.week-tabs button{
+  padding:10px 18px; border-radius:100px; border:1px solid var(--line); background:var(--card);
+  color:var(--muted); font-weight:700; font-size:13.5px; white-space:nowrap; flex:none;
+}
+.week-tabs button.active{background:var(--grad); color:#160812; border-color:transparent;}
+.day-tabs{display:flex; gap:8px; overflow-x:auto; margin-bottom:26px;}
+.day-tabs button{
+  padding:8px 14px; border-radius:10px; border:1px solid var(--line); background:transparent;
+  color:var(--muted); font-weight:600; font-size:12.5px; white-space:nowrap; flex:none;
+}
+.day-tabs button.active{background:rgba(255,79,163,.14); color:var(--pink2); border-color:rgba(255,79,163,.4);}
+.session-title{font-size:20px; margin-bottom:4px;}
+.session-sub{color:var(--muted); font-size:13px; margin-bottom:20px;}
+.exercise-card{padding:20px; margin-bottom:16px;}
+.exercise-card .ex-head{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:10px;}
+.exercise-card h4{font-size:16.5px;}
+.exercise-card .ex-machine{font-size:12.5px; color:var(--pink2); font-weight:700;}
+.stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:14px 0;}
+@media(min-width:600px){.stat-row{grid-template-columns:repeat(6,1fr);}}
+.stat-pill{background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:10px; padding:8px 6px; text-align:center;}
+.stat-pill b{display:block; font-size:14px;}
+.stat-pill span{font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;}
+.ex-detail{font-size:13.5px; color:var(--muted); margin-bottom:8px;}
+.ex-detail b{color:var(--text);}
+.stars-row{display:flex; gap:14px; flex-wrap:wrap; margin:12px 0; font-size:12px;}
+.stars-row span.lbl{color:var(--muted); margin-right:4px;}
+.star-on{color:var(--pink2);}
+.star-off{color:#3a3a3a;}
+.mistake-grid{display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;}
+@media(min-width:600px){.mistake-grid{grid-template-columns:1fr 1fr;}}
+.mistake-box{padding:11px 13px; border-radius:12px; font-size:12.5px;}
+.mistake-wrong{background:rgba(255,70,70,.08); border:1px solid rgba(255,70,70,.25);}
+.mistake-right{background:rgba(60,220,150,.08); border:1px solid rgba(60,220,150,.25);}
+.mistake-box b{display:block; margin-bottom:4px;}
+
+/* ---------- machine library ---------- */
+.lib-controls{display:flex; gap:10px; margin-bottom:22px; flex-wrap:wrap;}
+.lib-controls input[type=text]{
+  flex:1; min-width:180px; padding:13px 16px; border-radius:12px; border:1px solid var(--line);
+  background:var(--card); color:var(--text); font-size:14px;
+}
+.lib-controls select{
+  padding:13px 14px; border-radius:12px; border:1px solid var(--line); background:var(--card);
+  color:var(--text); font-size:13.5px;
+}
+.machine-card{padding:0; overflow:hidden;}
+.machine-card .mimg{
+  aspect-ratio:16/10; background:linear-gradient(135deg, rgba(255,79,163,.16), rgba(198,75,255,.08));
+  display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--muted); border-bottom:1px solid var(--line);
+}
+.machine-card .mbody{padding:18px;}
+.machine-card h4{font-size:16px;}
+.machine-card .mtag{font-size:11.5px; color:var(--pink2); font-weight:700; margin:4px 0 10px;}
+.machine-card details{font-size:13px; color:var(--muted); margin-top:8px;}
+.machine-card summary{cursor:pointer; color:var(--pink2); font-weight:700; font-size:12.5px; list-style:none;}
+.machine-card summary::-webkit-details-marker{display:none;}
+.machine-card .mrow{margin-top:6px;}
+.machine-card .mrow b{color:var(--text);}
+
+/* ---------- nutrition ---------- */
+.nutri-grid{display:grid; grid-template-columns:1fr; gap:16px;}
+@media(min-width:700px){.nutri-grid{grid-template-columns:repeat(4,1fr);}}
+.nutri-card{padding:20px; text-align:center;}
+.nutri-card .val{font-size:26px; font-weight:800; color:var(--pink2);}
+.nutri-card .lbl{font-size:12.5px; color:var(--muted); margin-top:4px;}
+.example-box{padding:22px; margin-top:22px;}
+.example-box table{width:100%; border-collapse:collapse; margin-top:12px;}
+.example-box td{padding:9px 6px; font-size:13.5px; border-bottom:1px solid var(--line);}
+.example-box td:first-child{color:var(--muted);}
+.example-box td:last-child{text-align:right; font-weight:700;}
+
+/* ---------- assessment ---------- */
+.assess-grid{display:grid; grid-template-columns:1fr; gap:26px;}
+@media(min-width:900px){.assess-grid{grid-template-columns:.9fr 1.1fr;}}
+.form-card{padding:24px;}
+.field{margin-bottom:16px;}
+.field label{display:block; font-size:12.5px; color:var(--muted); margin-bottom:6px; font-weight:600;}
+.field input, .field select{
+  width:100%; padding:13px 14px; border-radius:12px; border:1px solid var(--line);
+  background:#111; color:var(--text); font-size:14.5px;
+}
+.gender-toggle{display:flex; gap:8px;}
+.gender-toggle button{flex:1; padding:12px; border-radius:12px; border:1px solid var(--line); background:#111; color:var(--muted); font-weight:700;}
+.gender-toggle button.active{background:var(--grad); color:#160812; border-color:transparent;}
+.result-card{padding:26px; display:none;}
+.result-card.show{display:block;}
+.bmi-gauge-wrap{display:flex; flex-direction:column; align-items:center; margin-bottom:22px;}
+.bmi-value{font-size:38px; font-weight:800; margin-top:8px;}
+.bmi-label{font-size:13px; font-weight:700; color:var(--pink2); margin-top:2px;}
+.result-list{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px;}
+.result-item{padding:14px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid var(--line);}
+.result-item .v{font-size:19px; font-weight:800;}
+.result-item .l{font-size:11px; color:var(--muted); margin-top:3px;}
+.assess-cta{margin-top:20px; padding:16px 18px; border-radius:14px; background:rgba(255,79,163,.08); border:1px solid rgba(255,79,163,.25); font-size:13.5px;}
+
+/* ---------- progress tracker ---------- */
+.tracker-form{display:grid; grid-template-columns:1fr; gap:14px; padding:22px;}
+@media(min-width:700px){.tracker-form{grid-template-columns:repeat(3,1fr);}}
+.tracker-table-wrap{overflow-x:auto; margin-top:22px;}
+table.tracker{width:100%; border-collapse:collapse; min-width:640px;}
+table.tracker th, table.tracker td{padding:10px 12px; font-size:12.5px; border-bottom:1px solid var(--line); text-align:left; white-space:nowrap;}
+table.tracker th{color:var(--muted); font-weight:700; text-transform:uppercase; font-size:10.5px; letter-spacing:.05em;}
+table.tracker td button{background:transparent; border:none; color:#ff6b6b; font-size:12px; font-weight:700;}
+.ba-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px;}
+.ba-box{aspect-ratio:3/4; border-radius:16px; background:var(--card2); border:1px dashed var(--line); display:flex; align-items:center; justify-content:center; font-size:12.5px; color:var(--muted); text-align:center; padding:10px;}
+
+/* ---------- cardio timer ---------- */
+.timer-card{padding:34px; text-align:center;}
+.timer-display{font-size:56px; font-weight:800; font-variant-numeric:tabular-nums; margin:18px 0;}
+.timer-select{display:flex; gap:8px; justify-content:center; margin-bottom:14px; flex-wrap:wrap;}
+.timer-select button{padding:9px 18px; border-radius:100px; border:1px solid var(--line); background:var(--card2); color:var(--muted); font-weight:700; font-size:13px;}
+.timer-select button.active{background:var(--grad); color:#160812; border-color:transparent;}
+.timer-controls{display:flex; gap:10px; justify-content:center; margin-top:10px;}
+.timer-controls button{padding:12px 22px; border-radius:100px; font-weight:700; font-size:13.5px; border:1px solid var(--line); background:var(--card2); color:var(--text);}
+.timer-controls button.tstart{background:var(--grad); color:#160812; border-color:transparent;}
+
+/* ---------- CTA final ---------- */
+.cta-final{
+  padding:50px 30px; border-radius:26px; text-align:center;
+  background:linear-gradient(160deg, rgba(255,79,163,.14), rgba(198,75,255,.08)), var(--card);
+  border:1px solid var(--line);
+}
+.cta-final h2{font-size:clamp(24px,4vw,34px); margin-bottom:14px;}
+.cta-final p{color:var(--muted); max-width:520px; margin:0 auto 26px;}
+.cta-btns{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+.btn-zalo{background:#0068FF; color:#fff;}
+.btn-messenger{background:linear-gradient(135deg,#00B2FF,#006AFF); color:#fff;}
+
+footer{padding:34px 20px; text-align:center; color:var(--muted); font-size:12.5px; border-top:1px solid var(--line); margin-top:20px;}
+
+/* ---------- back to top ---------- */
+#backTop{
+  position:fixed; bottom:88px; right:18px; width:44px; height:44px; border-radius:50%;
+  background:var(--grad); color:#160812; border:none; font-size:16px; font-weight:900;
+  box-shadow:0 8px 20px rgba(255,79,163,.35); display:none; align-items:center; justify-content:center; z-index:85;
+}
+@media(min-width:960px){#backTop{bottom:24px;}}
+#backTop.show{display:flex;}
+
+/* ---------- scroll reveal ---------- */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+/* ---------- loading ---------- */
+#loadScreen{
+  position:fixed; inset:0; background:var(--bg); z-index:9999;
+  display:flex; align-items:center; justify-content:center; flex-direction:column; gap:14px;
+  transition:opacity .5s ease, visibility .5s ease;
+}
+#loadScreen .ring{width:44px; height:44px; border-radius:50%; border:3px solid var(--line); border-top-color:var(--pink); animation:spin 1s linear infinite;}
+#loadScreen p{font-size:12.5px; color:var(--muted); letter-spacing:.1em; text-transform:uppercase;}
+@keyframes spin{to{transform:rotate(360deg);}}
+#loadScreen.hide{opacity:0; visibility:hidden;}
+
+.tag-pill{display:inline-block; font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:100px; background:rgba(255,79,163,.12); color:var(--pink2); margin-right:6px;}
+::selection{background:var(--pink); color:#160812;}
+::-webkit-scrollbar{width:8px; height:8px;}
+::-webkit-scrollbar-thumb{background:#2a2a2a; border-radius:10px;}
+</style>
+</head>
+<body>
+
+<div id="loadScreen"><div class="ring"></div><p>Đang tải lộ trình...</p></div>
+
+<div id="readProgress"></div>
+<div id="readProgressLabel">0%</div>
+
+<!-- Sidebar (desktop) -->
+<nav class="sidebar">
+  <div class="logo">28 NGÀY<span>.</span></div>
+  <a href="#home" class="nav-link" data-target="home">🏠 Trang chủ</a>
+  <a href="#program" class="nav-link" data-target="program">📅 Giáo án</a>
+  <a href="#machines" class="nav-link" data-target="machines">🏋️ Máy tập</a>
+  <a href="#nutrition" class="nav-link" data-target="nutrition">🍗 Dinh dưỡng</a>
+  <a href="#assessment" class="nav-link" data-target="assessment">🧮 Đánh giá thể trạng</a>
+  <a href="#tracker" class="nav-link" data-target="tracker">📊 Theo dõi tiến độ</a>
+  <a href="#contact" class="nav-link" data-target="contact">📩 Liên hệ</a>
+</nav>
+
+<!-- Topbar (mobile) -->
+<header class="topbar">
+  <div class="logo">LỘ TRÌNH 28 NGÀY<span>.</span></div>
+  <button class="menu-btn" onclick="document.getElementById('home').scrollIntoView()">☰</button>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">PT Freelance • Fitness Starter Kit</div>
+      <h1>Lộ Trình <em>28 Ngày</em> Cho Người Mới Bắt Đầu</h1>
+      <p class="sub">Chương trình nền tảng giúp nữ giới tự tin bước vào phòng gym, biết cách sử dụng máy tập, tập đúng kỹ thuật và xây dựng thói quen luyện tập — hoàn toàn miễn phí.</p>
+      <div class="hero-stats">
+        <div>28<span>Ngày</span></div>
+        <div>16<span>Buổi tập</span></div>
+        <div>20<span>Máy tập</span></div>
+        <div>0đ<span>Chi phí</span></div>
+      </div>
+      <a href="#program" class="btn btn-primary">Bắt đầu hành trình →</a>
+    </div>
+    <div class="hero-visual">
+      <div class="ph">📷<br>Ảnh fitness nữ<br>(placeholder)</div>
+      <div class="badge">"Ngày đầu tiên luôn đáng sợ nhất — sau đó bạn sẽ chỉ tiến lên."</div>
+    </div>
+  </div>
+</section>
+
+<!-- CAM KẾT -->
+<section class="section" id="commit">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Cam kết</div>
+      <h2>Sau 28 ngày, bạn sẽ...</h2>
+      <p>Không cần kinh nghiệm. Không cần biết gì trước. Chỉ cần làm theo từng bước.</p>
+    </div>
+    <div class="commit-grid" id="commitGrid"></div>
+  </div>
+</section>
+
+<!-- KIẾN THỨC NỀN TẢNG -->
+<section class="section" id="knowledge">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Kiến thức nền tảng</div>
+      <h2>Hiểu trước khi tập</h2>
+      <p>7 khái niệm cốt lõi — hiểu đúng để tập đúng và không bỏ cuộc giữa chừng.</p>
+    </div>
+    <div class="grid-3" id="knowledgeGrid"></div>
+  </div>
+</section>
+
+<!-- WARM UP -->
+<section class="section" id="warmup">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Trước mỗi buổi tập</div>
+      <h2>Warm Up — Khởi động đúng cách</h2>
+      <p>5–8 phút khởi động giúp giảm chấn thương, tăng hiệu suất và làm nóng đúng nhóm cơ sẽ tập.</p>
+    </div>
+    <div class="card" style="padding:8px 20px;" id="warmupAccordion"></div>
+  </div>
+</section>
+
+<!-- GIAO AN 28 NGAY -->
+<section class="section" id="program">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Giáo án chi tiết</div>
+      <h2>Chương Trình 28 Ngày</h2>
+      <p>4 tuần • 4 buổi/tuần • 16 buổi tập tổng cộng. Mỗi buổi có cardio sau khi tập kháng lực.</p>
+    </div>
+    <div class="week-tabs" id="weekTabs"></div>
+    <div class="day-tabs" id="dayTabs"></div>
+    <div id="sessionHead"></div>
+    <div id="exerciseList"></div>
+  </div>
+</section>
+
+<!-- MACHINE LIBRARY -->
+<section class="section" id="machines">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Thư viện máy tập</div>
+      <h2>20 Máy Tập Phổ Biến Tại Việt Nam</h2>
+      <p>Tra cứu cách chỉnh máy, tư thế đúng và mẹo từ PT trước khi ra phòng gym.</p>
+    </div>
+    <div class="lib-controls">
+      <input type="text" id="machineSearch" placeholder="🔍 Tìm máy tập theo tên...">
+      <select id="machineFilter">
+        <option value="all">Tất cả nhóm cơ</option>
+      </select>
+    </div>
+    <div class="grid-3" id="machineGrid"></div>
+  </div>
+</section>
+
+<!-- NUTRITION -->
+<section class="section" id="nutrition">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Dinh dưỡng cơ bản</div>
+      <h2>Ăn Sao Cho Đúng Mục Tiêu</h2>
+      <p>Không cần ăn kiêng khắc nghiệt — chỉ cần hiểu 4 thành phần cơ bản này.</p>
+    </div>
+    <div class="nutri-grid" id="nutriGrid"></div>
+    <div class="example-box card">
+      <div class="eyebrow" style="margin-bottom:8px;">Ví dụ thực tế</div>
+      <h4>Nữ 55kg — Mục tiêu giảm mỡ</h4>
+      <table>
+        <tr><td>Protein / ngày</td><td>110 – 132g</td></tr>
+        <tr><td>Calories duy trì (TDEE)</td><td>~1,760 kcal</td></tr>
+        <tr><td>Calories giảm mỡ (deficit 15–20%)</td><td>~1,410 – 1,500 kcal</td></tr>
+        <tr><td>Nước / ngày</td><td>~1.9 – 2.2 lít</td></tr>
+        <tr><td>Chia bữa gợi ý</td><td>3 bữa chính + 1 bữa phụ</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ASSESSMENT -->
+<section class="section" id="assessment">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Miễn phí</div>
+      <h2>Đánh Giá Thể Trạng Cá Nhân</h2>
+      <p>Nhập thông tin để tính BMI, nhu cầu Protein, Calories và lượng nước phù hợp với bạn.</p>
+    </div>
+    <div class="assess-grid">
+      <div class="form-card card">
+        <div class="field">
+          <label>Giới tính</label>
+          <div class="gender-toggle">
+            <button type="button" class="active" data-gender="female">Nữ</button>
+            <button type="button" data-gender="male">Nam</button>
+          </div>
+        </div>
+        <div class="field"><label>Tuổi</label><input type="number" id="inAge" placeholder="Ví dụ: 22" min="12" max="80"></div>
+        <div class="field"><label>Chiều cao (cm)</label><input type="number" id="inHeight" placeholder="Ví dụ: 158" min="120" max="220"></div>
+        <div class="field"><label>Cân nặng (kg)</label><input type="number" id="inWeight" placeholder="Ví dụ: 52" min="30" max="150"></div>
+        <div class="field">
+          <label>Mục tiêu</label>
+          <select id="inGoal">
+            <option value="lose">Giảm mỡ</option>
+            <option value="maintain">Duy trì vóc dáng</option>
+            <option value="gain">Tăng cơ</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="calcAssessment()">Tính chỉ số của tôi</button>
+      </div>
+      <div class="result-card card" id="resultCard">
+        <div class="bmi-gauge-wrap">
+          <svg id="bmiGauge" width="220" height="130" viewBox="0 0 220 130"></svg>
+          <div class="bmi-value" id="bmiValue">--</div>
+          <div class="bmi-label" id="bmiLabel">Nhập thông tin để xem kết quả</div>
+        </div>
+        <div class="result-list">
+          <div class="result-item"><div class="v" id="resProtein">--</div><div class="l">Protein / ngày (g)</div></div>
+          <div class="result-item"><div class="v" id="resTDEE">--</div><div class="l">Calories duy trì</div></div>
+          <div class="result-item"><div class="v" id="resLose">--</div><div class="l">Calories giảm mỡ</div></div>
+          <div class="result-item"><div class="v" id="resGain">--</div><div class="l">Calories tăng cơ</div></div>
+          <div class="result-item" style="grid-column:1/-1;"><div class="v" id="resWater">--</div><div class="l">Lượng nước / ngày (lít)</div></div>
+        </div>
+        <div class="assess-cta">💌 Nếu muốn mình xem miễn phí chỉ số hiện tại và gợi ý hướng tập luyện phù hợp, hãy gửi kết quả này cho mình.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRESS TRACKER -->
+<section class="section" id="tracker">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Theo dõi tiến độ</div>
+      <h2>Progress Tracker</h2>
+      <p>Ghi lại số đo mỗi tuần — dữ liệu lưu tự động trên máy của bạn, mở lại vẫn còn.</p>
+    </div>
+    <div class="card">
+      <div class="tracker-form">
+        <div class="field" style="margin:0;"><label>Ngày</label><input type="date" id="trkDate"></div>
+        <div class="field" style="margin:0;"><label>Cân nặng (kg)</label><input type="number" id="trkWeight" placeholder="52"></div>
+        <div class="field" style="margin:0;"><label>Vòng eo (cm)</label><input type="number" id="trkWaist" placeholder="65"></div>
+        <div class="field" style="margin:0;"><label>Vòng mông (cm)</label><input type="number" id="trkHip" placeholder="90"></div>
+        <div class="field" style="margin:0;"><label>Vòng đùi (cm)</label><input type="number" id="trkThigh" placeholder="52"></div>
+        <div class="field" style="margin:0;"><label>Ghi chú</label><input type="text" id="trkNote" placeholder="Cảm nhận buổi tập..."></div>
+      </div>
+      <div style="padding:0 22px 22px;">
+        <button class="btn btn-primary" onclick="addTrackerEntry()">+ Thêm bản ghi</button>
+      </div>
+      <div class="tracker-table-wrap" style="padding:0 22px 22px;">
+        <table class="tracker" id="trackerTable">
+          <thead><tr><th>Ngày</th><th>Cân nặng</th><th>Eo</th><th>Mông</th><th>Đùi</th><th>Ghi chú</th><th></th></tr></thead>
+          <tbody id="trackerBody"></tbody>
+        </table>
+      </div>
+      <div style="padding:0 22px 24px; font-size:12.5px; color:var(--muted);">📩 Khi đã điền xong, bạn có thể gửi các chỉ số này cho mình. Mình sẽ xem miễn phí và gợi ý giáo án + dinh dưỡng phù hợp với mục tiêu.</div>
+    </div>
+
+    <div class="section-head reveal" style="margin-top:50px;">
+      <div class="eyebrow">Trước & Sau</div>
+      <h2>Ảnh Before / After</h2>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-box">📷 Ảnh TRƯỚC<br>(placeholder)</div>
+      <div class="ba-box">📷 Ảnh SAU<br>(placeholder)</div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDIO TIMER -->
+<section class="section" id="cardio">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Sau buổi tập</div>
+      <h2>Cardio Timer</h2>
+      <p>Chọn thời lượng cardio phù hợp và bấm giờ ngay trong app.</p>
+    </div>
+    <div class="timer-card card">
+      <div class="timer-select">
+        <button data-min="10" class="tmin">10 phút</button>
+        <button data-min="20" class="tmin active">20 phút</button>
+        <button data-min="30" class="tmin">30 phút</button>
+      </div>
+      <div class="timer-display" id="timerDisplay">20:00</div>
+      <div class="timer-controls">
+        <button class="tstart" id="timerStart" onclick="timerStart()">▶ Start</button>
+        <button onclick="timerPause()">⏸ Pause</button>
+        <button onclick="timerReset()">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Giải đáp</div>
+      <h2>Câu Hỏi Thường Gặp</h2>
+    </div>
+    <div class="card" style="padding:8px 20px;" id="faqAccordion"></div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="cta-final reveal">
+      <h2>Vẫn chưa biết bắt đầu từ đâu?</h2>
+      <p>Nếu bạn đã đọc đến đây nhưng vẫn chưa biết bắt đầu từ đâu, hãy nhắn tin cho mình. Mình sẽ hỗ trợ xem lịch tập, chế độ ăn và định hướng miễn phí.</p>
+      <div class="cta-btns">
+        <a href="https://zalo.me/" target="_blank" class="btn btn-zalo">💬 Nhắn Zalo</a>
+        <a href="https://m.me/" target="_blank" class="btn btn-messenger">💬 Nhắn Messenger</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Lộ Trình 28 Ngày Cho Người Mới — Fitness Starter Kit dành cho PT Freelance.</footer>
+
+<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- Bottom nav (mobile) -->
+<nav class="bottomnav">
+  <a href="#home" class="nav-link" data-target="home"><span class="ic">🏠</span>Trang chủ</a>
+  <a href="#program" class="nav-link" data-target="program"><span class="ic">📅</span>Giáo án</a>
+  <a href="#machines" class="nav-link" data-target="machines"><span class="ic">🏋️</span>Máy tập</a>
+  <a href="#nutrition" class="nav-link" data-target="nutrition"><span class="ic">🍗</span>Dinh dưỡng</a>
+  <a href="#assessment" class="nav-link" data-target="assessment"><span class="ic">🧮</span>Đánh giá</a>
+  <a href="#tracker" class="nav-link" data-target="tracker"><span class="ic">📊</span>Tiến độ</a>
+  <a href="#contact" class="nav-link" data-target="contact"><span class="ic">📩</span>Liên hệ</a>
+</nav>
+
+<script>
+/* =========================================================
+   DATA LAYER — dễ chỉnh sửa / dễ thêm hình máy sau này
+   ========================================================= */
+
+// ---------- CAM KẾT ----------
+const commitments = [
+  "Hiểu cách sử dụng các máy tập phổ biến.",
+  "Không còn sợ phòng gym.",
+  "Biết cách tập đúng kỹ thuật.",
+  "Hiểu nguyên tắc giảm mỡ.",
+  "Biết cách ăn uống cơ bản.",
+  "Xây dựng nền tảng tập luyện lâu dài."
+];
+
+// ---------- KIẾN THỨC NỀN TẢNG ----------
+const knowledge = [
+  {ic:"📈", t:"Progressive Overload", d:"Nguyên tắc tăng dần độ khó (tạ, reps, hoặc hiệp) theo thời gian để cơ thể tiếp tục phát triển.", ex:"Ví dụ: tuần này Leg Press 20kg x12 → tuần sau 22.5kg x12."},
+  {ic:"🍗", t:"Protein", d:"Dưỡng chất xây dựng và phục hồi cơ bắp. Người tập nên nạp khoảng 1.6–2g/kg thể trọng mỗi ngày.", ex:"Ví dụ: 55kg → cần khoảng 88–110g protein/ngày."},
+  {ic:"🔥", t:"Calories", d:"Năng lượng cơ thể nạp vào và tiêu hao. Giảm mỡ cần ăn ít hơn mức duy trì (deficit), tăng cơ cần ăn nhiều hơn (surplus).", ex:"Deficit 15–20% là mức an toàn, bền vững cho người mới."},
+  {ic:"🏃‍♀️", t:"Cardio", d:"Bài tập tim mạch giúp đốt calo, cải thiện sức bền. Nên thực hiện sau buổi tập kháng lực.", ex:"Đi bộ nghiêng máy treadmill 20 phút là lựa chọn tốt cho người mới."},
+  {ic:"🛌", t:"Recovery", d:"Thời gian nghỉ giữa các buổi tập để cơ phục hồi và phát triển. Không nên tập cùng một nhóm cơ 2 ngày liên tiếp.", ex:"Nghỉ ít nhất 48h trước khi tập lại cùng nhóm cơ."},
+  {ic:"😴", t:"Sleep", d:"Ngủ đủ 7–9 tiếng/đêm giúp hormone phục hồi, cơ bắp phát triển và kiểm soát cơn thèm ăn tốt hơn.", ex:"Thiếu ngủ làm chậm quá trình giảm mỡ dù bạn tập đúng."},
+  {ic:"💧", t:"Hydration", d:"Uống đủ nước hỗ trợ trao đổi chất, giảm mệt mỏi và tăng hiệu suất tập luyện.", ex:"Uống 400–500ml nước trước buổi tập 30 phút."}
+];
+
+// ---------- WARM UP ----------
+const warmups = [
+  {t:"Vì sao cần khởi động?", d:"Khởi động giúp tăng nhiệt độ cơ, bôi trơn khớp, giảm nguy cơ chấn thương và cải thiện hiệu suất buổi tập. Bỏ qua bước này dễ khiến bạn tập sai tư thế do cơ còn cứng."},
+  {t:"Động tác mở khớp (2 phút)", d:"Xoay cổ tay, cổ chân, xoay hông, xoay vai theo chiều kim đồng hồ và ngược lại, mỗi động tác 10 lần."},
+  {t:"Activation — kích hoạt cơ (3 phút)", d:"Glute bridge 15 reps, plank 20 giây, bodyweight squat 15 reps để đánh thức nhóm cơ trọng tâm và mông."},
+  {t:"Chuẩn bị cơ thể (2-3 phút)", d:"Đi bộ nhanh trên treadmill hoặc đạp xe nhẹ để tăng nhịp tim từ từ trước khi vào bài tập chính."}
+];
+
+// ---------- FAQ ----------
+const faqs = [
+  {q:"Người mới có cần whey không?", a:"Không bắt buộc. Whey chỉ là thực phẩm bổ sung protein tiện lợi. Nếu bạn ăn đủ protein từ thịt, cá, trứng, đậu hũ trong bữa ăn thì không cần whey."},
+  {q:"Có cần tập nặng không?", a:"Không cần tập quá nặng ngay từ đầu. Người mới nên ưu tiên tập đúng kỹ thuật trước, sau đó tăng dần mức tạ theo nguyên tắc Progressive Overload."},
+  {q:"Bao lâu thấy kết quả?", a:"Thường sau 3–4 tuần tập đều + ăn uống hợp lý, bạn sẽ cảm nhận cơ thể săn chắc hơn. Thay đổi rõ về ngoại hình thường cần 8–12 tuần."},
+  {q:"Có cần cardio không?", a:"Cardio hỗ trợ đốt calo và tim mạch khỏe hơn, nhưng không phải yếu tố duy nhất quyết định giảm mỡ. Kết hợp cardio nhẹ 15–20 phút sau buổi tập kháng lực là hợp lý."}
+];
+
+// ---------- THƯ VIỆN MÁY TẬP (20 máy) ----------
+const machines = [
+  {id:"leg-press", en:"Leg Press", vn:"Máy đẩy đùi", group:"Lower Body", use:"Phát triển sức mạnh tổng thể chân: đùi trước, mông, đùi sau.", adjust:"Chỉnh ghế sao cho đầu gối tạo góc 90° khi tấm đẩy ở vị trí gần nhất. Đặt chân rộng bằng vai giữa bàn đẩy.", posture:"Lưng và hông áp sát ghế, đẩy bằng gót chân, không khóa gối ở điểm cuối.", mistake:"Nhấc mông khỏi ghế khi đẩy nặng; khóa cứng gối.", tip:"Tập trung cảm nhận lực ở gót chân thay vì mũi chân để tránh dồn áp lực lên đầu gối."},
+  {id:"leg-extension", en:"Leg Extension", vn:"Máy đá đùi trước", group:"Lower Body", use:"Cô lập cơ đùi trước (quadriceps).", adjust:"Chỉnh lưng ghế để đầu gối thẳng hàng với trục xoay máy. Đệm chân nằm ngay trên mắt cá.", posture:"Giữ lưng thẳng, đá chân lên chậm rãi, kiểm soát khi hạ xuống.", mistake:"Dùng lực quán tính đá bật mạnh; không kiểm soát pha hạ.", tip:"Dừng 1 giây ở điểm cao nhất để tăng hiệu quả siết cơ."},
+  {id:"seated-leg-curl", en:"Seated Leg Curl", vn:"Máy gập gối ngồi", group:"Lower Body", use:"Phát triển cơ đùi sau (hamstrings).", adjust:"Đệm đùi trên sát đầu gối, đệm chân dưới ngay gót chân.", posture:"Giữ hông cố định trên ghế, kéo gót chân xuống dưới bằng lực cơ đùi sau.", mistake:"Nhấc hông lên khỏi ghế; kéo quá nhanh mất kiểm soát.", tip:"Siết chặt hamstring ở điểm cuối trước khi thả về từ từ."},
+  {id:"lying-leg-curl", en:"Lying Leg Curl", vn:"Máy gập gối nằm", group:"Lower Body", use:"Cô lập cơ đùi sau ở tư thế nằm sấp.", adjust:"Đệm chân đặt ngay phía trên gót chân, hông áp sát ghế.", posture:"Giữ hông không nhấc khỏi ghế, gập gối kéo gót về phía mông.", mistake:"Ưỡn lưng, nhấc hông để kéo được nặng hơn.", tip:"Tập biên độ chậm — 2 giây kéo lên, 3 giây hạ xuống."},
+  {id:"hip-abductor", en:"Hip Abductor", vn:"Máy đá đùi ra ngoài", group:"Lower Body", use:"Tăng cường cơ mông nhỡ (gluteus medius), hỗ trợ dáng mông tròn.", adjust:"Chỉnh biên độ máy vừa với độ mở háng của bạn, ngồi sâu vào ghế.", posture:"Lưng thẳng, đẩy hai đùi ra ngoài bằng lực cơ mông, không dùng đà.", mistake:"Ngồi chưa sâu vào ghế; dùng lực bật thay vì cơ mông.", tip:"Siết mông 1 giây ở điểm mở rộng nhất."},
+  {id:"hip-adductor", en:"Hip Adductor", vn:"Máy khép đùi vào trong", group:"Lower Body", use:"Tăng cường cơ đùi trong (adductors).", adjust:"Chỉnh biên độ mở phù hợp, tránh mở quá mức gây căng cơ.", posture:"Ngồi thẳng lưng, khép hai đùi vào nhau chậm rãi và có kiểm soát.", mistake:"Mở biên độ quá rộng khi chưa làm nóng cơ.", tip:"Kết hợp với Hip Abductor để cân bằng cơ đùi trong và ngoài."},
+  {id:"smith-machine", en:"Smith Machine", vn:"Máy Smith (tạ đòn cố định ray)", group:"Lower Body", use:"Tập squat, hip thrust, lunge an toàn hơn barbell tự do nhờ thanh tạ di chuyển theo ray cố định.", adjust:"Chỉnh móc an toàn ở độ cao phù hợp với chiều cao của bạn khi squat sâu nhất.", posture:"Đặt thanh tạ trên bẫy vai (không phải cổ), giữ cột sống trung tính khi hạ người.", mistake:"Đặt chân quá gần thanh tạ gây mất thăng bằng; cúi gập lưng thay vì gập hông-gối.", tip:"Người mới nên tập không tạ hoặc tạ rất nhẹ để quen quỹ đạo trước."},
+  {id:"hip-thrust-machine", en:"Hip Thrust Machine", vn:"Máy đẩy hông (Hip Thrust)", group:"Lower Body", use:"Bài tập số 1 để phát triển vòng 3 — cô lập cơ mông lớn.", adjust:"Chỉnh đệm lưng và đệm hông sao cho khi đẩy lên, đầu gối tạo góc 90°.", posture:"Lưng trên tựa vào đệm, đẩy hông lên bằng lực gót chân và siết mông ở đỉnh.", mistake:"Ưỡn lưng dưới quá mức thay vì siết mông; đẩy bằng mũi chân.", tip:"Dừng 1–2 giây ở đỉnh động tác, siết mông thật chặt trước khi hạ xuống."},
+  {id:"lat-pulldown", en:"Lat Pulldown", vn:"Máy kéo xô", group:"Upper Body", use:"Phát triển cơ lưng xô (lats), hỗ trợ dáng lưng thẳng, eo trông nhỏ hơn.", adjust:"Chỉnh đệm đùi ép sát chân, cầm tay nắm rộng hơn vai.", posture:"Ngực ưỡn nhẹ, kéo thanh xuống ngang ngực trên, khuỷu tay đi xuống-ra sau.", mistake:"Ngả người ra sau quá nhiều để kéo được nặng hơn; kéo bằng tay thay vì lưng.", tip:"Tưởng tượng đưa khuỷu tay vào túi quần sau để kích hoạt đúng cơ lưng."},
+  {id:"seated-row", en:"Seated Row", vn:"Máy kéo cáp ngồi", group:"Upper Body", use:"Phát triển cơ lưng giữa, cải thiện tư thế lưng thẳng.", adjust:"Chỉnh đệm ngực/chân sao cho khi duỗi tay ra trước, lưng vẫn thẳng.", posture:"Ngồi thẳng lưng, kéo tay nắm về phía bụng dưới, siết bả vai lại gần nhau.", mistake:"Gù lưng khi kéo; dùng lực đà thân trên đẩy về sau.", tip:"Siết chặt bả vai 1 giây ở điểm cuối trước khi duỗi tay trở lại."},
+  {id:"chest-press", en:"Chest Press", vn:"Máy đẩy ngực", group:"Upper Body", use:"Phát triển cơ ngực, vai trước, tay sau.", adjust:"Chỉnh ghế sao cho tay nắm ngang với đường ngực giữa.", posture:"Lưng áp sát ghế, đẩy tay nắm ra trước, không khóa khuỷu tay hoàn toàn.", mistake:"Nhấc mông/lưng khỏi ghế khi đẩy nặng.", tip:"Hít vào khi hạ tay nắm, thở ra khi đẩy ra."},
+  {id:"pec-deck", en:"Pec Deck", vn:"Máy ép ngực (cánh bướm)", group:"Upper Body", use:"Cô lập cơ ngực, giúp ngực săn chắc hơn.", adjust:"Chỉnh ghế sao cho khuỷu tay ngang vai khi tay nắm ở vị trí mở rộng.", posture:"Lưng áp sát ghế, ép hai tay vào nhau bằng lực cơ ngực, kiểm soát khi mở ra.", mistake:"Dùng lực quán tính đập hai tay vào nhau quá nhanh.", tip:"Siết ngực 1 giây ở điểm khép gần nhau nhất."},
+  {id:"shoulder-press", en:"Shoulder Press", vn:"Máy đẩy vai", group:"Upper Body", use:"Phát triển cơ vai, tạo dáng vai thon gọn.", adjust:"Chỉnh ghế để tay nắm ngang vai khi bắt đầu động tác.", posture:"Lưng áp sát ghế, đẩy thẳng lên trên, không ưỡn lưng quá mức.", mistake:"Ưỡn cong lưng dưới để đẩy được nặng hơn.", tip:"Giữ core siết chặt suốt động tác để bảo vệ cột sống."},
+  {id:"assisted-pullup", en:"Assisted Pull Up", vn:"Máy hỗ trợ kéo xà", group:"Upper Body", use:"Tập kéo xà với mức hỗ trợ giảm trọng lượng cơ thể — phù hợp người mới.", adjust:"Chọn mức tạ hỗ trợ cao (dễ) khi mới bắt đầu, giảm dần theo thời gian.", posture:"Cầm tay nắm rộng hơn vai, kéo người lên đến khi cằm ngang xà.", mistake:"Kéo bằng đà đung đưa người; chọn mức hỗ trợ quá thấp gây sai kỹ thuật.", tip:"Tập trung cảm nhận lưng xô hoạt động thay vì chỉ dùng tay."},
+  {id:"cable-machine", en:"Cable Machine", vn:"Máy cáp đơn", group:"Upper Body", use:"Đa năng: tập tay, vai, lưng, bụng tùy vị trí ròng rọc.", adjust:"Chỉnh độ cao ròng rọc phù hợp bài tập (thấp cho gập bụng, cao cho gập tay).", posture:"Giữ thân người ổn định, chỉ di chuyển khớp đang tập.", mistake:"Dùng cả thân người tạo đà thay vì cô lập đúng nhóm cơ.", tip:"Máy cáp phù hợp để tập các bài hoàn thiện dáng như gập tay, đá mông cáp."},
+  {id:"cable-crossover", en:"Cable Crossover", vn:"Máy cáp chéo đôi", group:"Upper Body", use:"Phát triển cơ ngực giữa và trong, tạo đường nét săn chắc.", adjust:"Chỉnh ròng rọc ngang vai hoặc cao hơn tùy vùng ngực muốn tập trung.", posture:"Bước chân trước-sau tạo thế vững, kéo hai tay khép vào nhau trước ngực.", mistake:"Đứng không vững khiến thân người xoay lệch khi kéo cáp.", tip:"Khép tay chậm và siết ngực ở điểm giao nhau giữa ngực."},
+  {id:"treadmill", en:"Treadmill", vn:"Máy chạy bộ", group:"Cardio", use:"Cardio đốt calo, cải thiện tim mạch, phù hợp mọi trình độ.", adjust:"Bắt đầu tốc độ chậm (4-5 km/h), có thể tăng độ nghiêng để tăng cường độ mà không cần chạy nhanh.", posture:"Nhìn thẳng, thả lỏng vai, sải bước tự nhiên, không bám chặt tay vịn.", mistake:"Bám tay vịn liên tục làm giảm hiệu quả đốt calo và sai tư thế.", tip:"Đi bộ nghiêng dốc (incline walk) là lựa chọn nhẹ nhàng và hiệu quả cho người mới."},
+  {id:"elliptical", en:"Elliptical", vn:"Máy tập elip (đạp chéo)", group:"Cardio", use:"Cardio toàn thân, ít áp lực lên khớp gối.", adjust:"Chỉnh mức kháng lực phù hợp thể lực, bắt đầu ở mức thấp.", posture:"Đứng thẳng, giữ core siết nhẹ, tay đẩy-kéo nhịp nhàng theo chân.", mistake:"Gập người về phía trước quá nhiều, dồn lực lên tay vịn.", tip:"Phù hợp cho người có vấn đề về khớp gối muốn cardio nhẹ nhàng."},
+  {id:"bike", en:"Stationary Bike", vn:"Xe đạp tập", group:"Cardio", use:"Cardio cường độ thấp-vừa, tốt cho tim mạch và đùi.", adjust:"Chỉnh yên xe sao cho đầu gối hơi cong khi bàn đạp ở điểm thấp nhất.", posture:"Lưng thẳng hoặc hơi nghiêng nhẹ, đạp đều bằng cả bàn chân.", mistake:"Yên xe quá thấp gây áp lực lên đầu gối.", tip:"Lựa chọn tốt để cardio ngay sau buổi tập chân nặng."},
+  {id:"stair-climber", en:"Stair Climber", vn:"Máy leo cầu thang", group:"Cardio", use:"Cardio cường độ cao, tác động mạnh đến mông và đùi.", adjust:"Bắt đầu tốc độ chậm, tăng dần khi quen nhịp bước.", posture:"Đứng thẳng lưng, bước đều hai chân, tránh nhón chỉ mũi chân.", mistake:"Bám chặt tay vịn khiến chân không chịu đủ trọng lượng cơ thể.", tip:"Chỉ nên dùng tay vịn để giữ thăng bằng, không dùng để đỡ trọng lượng."}
+];
+
+// ---------- GIÁO ÁN 28 NGÀY (4 tuần x 4 buổi x ~5 bài) ----------
+// Mỗi bài: name, machine, muscleGroup, sets, reps, tempo, rpe, rest, goal, guide, tip,
+// stars: {difficulty, effect, beginner} (1-5), mistakeWrong, mistakeRight
+function ex(o){return o;}
+
+const program = {
+  1: { // TUẦN 1 — Làm quen
+    title:"Tuần 1 — Làm quen với phòng gym",
+    days:[
+      {name:"Buổi 1 — Full Body Cơ Bản", note:"Làm quen máy, tập kỹ thuật, tạ nhẹ.", cardio:"Treadmill đi bộ nghiêng 15 phút",
+        exs:[
+          ex({name:"Đẩy đùi", machine:"Leg Press", group:"Đùi trước / Mông", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"5-6", rest:"60-75s", goal:"Làm quen máy, học kiểm soát chuyển động.", guide:"Đặt chân rộng bằng vai, hạ tấm đẩy đến khi gối 90°, đẩy bằng gót chân.", tip:"Chọn tạ nhẹ, ưu tiên đúng biên độ hơn là nặng.",
+            stars:{diff:2,effect:4,beginner:5}, wrong:"Khóa cứng gối ở điểm cuối, nhấc mông khỏi ghế.", right:"Kiểm soát chuyển động, đẩy bằng gót chân, không khóa gối."}),
+          ex({name:"Kéo xô", machine:"Lat Pulldown", group:"Lưng", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"5-6", rest:"60-75s", goal:"Kích hoạt cơ lưng, cải thiện tư thế.", guide:"Cầm tay rộng hơn vai, kéo thanh xuống ngực trên, khuỷu tay đi xuống-ra sau.", tip:"Không ngả người ra sau quá nhiều.",
+            stars:{diff:2,effect:4,beginner:4}, wrong:"Ngả người ra sau kéo bằng đà.", right:"Ngực ưỡn nhẹ, kéo bằng lực lưng."}),
+          ex({name:"Đẩy ngực", machine:"Chest Press", group:"Ngực / Tay sau", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"5-6", rest:"60-75s", goal:"Làm quen máy đẩy ngực cơ bản.", guide:"Lưng áp sát ghế, đẩy tay nắm ra trước, không khóa khuỷu tay hoàn toàn.", tip:"Hít vào khi hạ, thở ra khi đẩy.",
+            stars:{diff:1,effect:3,beginner:5}, wrong:"Nhấc lưng khỏi ghế khi đẩy nặng.", right:"Giữ lưng áp sát ghế suốt hiệp."}),
+          ex({name:"Đá đùi trước", machine:"Leg Extension", group:"Đùi trước", sets:3, reps:"15", tempo:"2-1-2", rpe:"5", rest:"45-60s", goal:"Cô lập, cảm nhận cơ đùi trước.", guide:"Đá chân lên chậm, dừng 1 giây ở đỉnh, hạ có kiểm soát.", tip:"Không dùng đà đá bật mạnh.",
+            stars:{diff:1,effect:3,beginner:5}, wrong:"Đá bật mạnh dùng quán tính.", right:"Kiểm soát tốc độ cả lên và xuống."}),
+          ex({name:"Plank", machine:"Sàn tập / thảm", group:"Core", sets:3, reps:"20-30s giữ", tempo:"-", rpe:"5", rest:"45s", goal:"Kích hoạt cơ trọng tâm.", guide:"Giữ thân thẳng từ đầu đến gót, không võng lưng.", tip:"Siết bụng và mông trong suốt thời gian giữ.",
+            stars:{diff:2,effect:3,beginner:4}, wrong:"Võng lưng dưới hoặc đẩy mông lên cao.", right:"Giữ đường thẳng đầu-hông-gót chân."})
+        ]},
+      {name:"Buổi 2 — Lower Body Nhẹ Nhàng", note:"Tập trung học kỹ thuật squat/hip thrust bằng máy.", cardio:"Bike 15 phút",
+        exs:[
+          ex({name:"Đẩy hông (Hip Thrust)", machine:"Hip Thrust Machine", group:"Mông", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"5-6", rest:"60-75s", goal:"Học kích hoạt cơ mông đúng cách.", guide:"Đẩy hông lên, siết mông ở đỉnh 1-2 giây, hạ chậm.", tip:"Không dồn lực lên lưng dưới.",
+            stars:{diff:2,effect:5,beginner:5}, wrong:"Ưỡn lưng dưới quá mức thay vì siết mông.", right:"Siết mông thật chặt ở đỉnh động tác."}),
+          ex({name:"Đẩy đùi", machine:"Leg Press", group:"Đùi / Mông", sets:3, reps:"12", tempo:"2-1-2", rpe:"6", rest:"75s", goal:"Tăng nhẹ cường độ so với buổi 1.", guide:"Đặt chân rộng vai, đẩy bằng gót chân.", tip:"Tăng tạ nhẹ nếu buổi 1 thấy nhẹ nhàng.",
+            stars:{diff:2,effect:4,beginner:5}, wrong:"Khóa gối, nhấc mông khỏi ghế.", right:"Kiểm soát biên độ, không khóa gối."}),
+          ex({name:"Gập gối ngồi", machine:"Seated Leg Curl", group:"Đùi sau", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"5", rest:"60s", goal:"Cân bằng cơ đùi trước-sau.", guide:"Kéo gót chân xuống bằng lực đùi sau, giữ hông cố định.", tip:"Không nhấc hông khỏi ghế.",
+            stars:{diff:2,effect:4,beginner:4}, wrong:"Nhấc hông lên để kéo nặng hơn.", right:"Giữ hông cố định trên ghế."}),
+          ex({name:"Đá đùi ra ngoài", machine:"Hip Abductor", group:"Mông nhỡ", sets:3, reps:"15", tempo:"2-1-2", rpe:"5", rest:"45-60s", goal:"Định hình mông tròn, hông săn chắc.", guide:"Đẩy hai đùi ra ngoài bằng lực mông, không dùng đà.", tip:"Siết mông 1 giây ở điểm mở rộng nhất.",
+            stars:{diff:1,effect:3,beginner:5}, wrong:"Ngồi chưa sâu vào ghế, dùng lực bật.", right:"Ngồi sâu, đẩy chậm có kiểm soát."}),
+          ex({name:"Đứng lên ngồi xuống (Bodyweight Squat)", machine:"Không cần máy", group:"Toàn thân dưới", sets:3, reps:"15", tempo:"2-1-2", rpe:"5", rest:"45s", goal:"Củng cố kỹ thuật squat cơ bản.", guide:"Hạ hông xuống-ra sau như ngồi ghế, đầu gối theo hướng mũi chân.", tip:"Giữ trọng lượng ở gót chân.",
+            stars:{diff:2,effect:4,beginner:5}, wrong:"Đầu gối đổ vào trong khi hạ xuống.", right:"Đầu gối thẳng hàng với mũi chân."})
+        ]},
+      {name:"Buổi 3 — Upper Body Làm Quen", note:"Làm quen nhóm máy thân trên.", cardio:"Elliptical 15 phút",
+        exs:[
+          ex({name:"Kéo cáp ngồi", machine:"Seated Row", group:"Lưng giữa", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"5-6", rest:"60-75s", goal:"Cải thiện tư thế lưng thẳng.", guide:"Kéo tay nắm về bụng dưới, siết bả vai lại gần nhau.", tip:"Không gù lưng khi kéo.",
+            stars:{diff:2,effect:4,beginner:4}, wrong:"Gù lưng, dùng đà thân trên.", right:"Ngồi thẳng, siết bả vai ở điểm cuối."}),
+          ex({name:"Đẩy vai", machine:"Shoulder Press", group:"Vai", sets:3, reps:"12", tempo:"2-1-2", rpe:"5", rest:"60s", goal:"Làm quen máy đẩy vai, tạo dáng vai gọn.", guide:"Đẩy thẳng lên trên, không ưỡn lưng.", tip:"Giữ core siết chặt suốt động tác.",
+            stars:{diff:2,effect:3,beginner:4}, wrong:"Ưỡn cong lưng dưới để đẩy nặng hơn.", right:"Giữ lưng áp sát ghế, core siết chặt."}),
+          ex({name:"Ép ngực", machine:"Pec Deck", group:"Ngực", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"5", rest:"60s", goal:"Cô lập cơ ngực nhẹ nhàng.", guide:"Ép hai tay vào nhau bằng lực ngực, kiểm soát khi mở ra.", tip:"Không đập tay nhanh bằng quán tính.",
+            stars:{diff:1,effect:3,beginner:5}, wrong:"Dùng đà đập hai tay vào nhau.", right:"Ép chậm, siết ngực 1 giây ở điểm cuối."}),
+          ex({name:"Máy cáp — Gập tay trước", machine:"Cable Machine", group:"Tay trước", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"5", rest:"45-60s", goal:"Làm quen máy cáp đa năng.", guide:"Giữ khuỷu tay cố định sát thân, gập cẳng tay lên.", tip:"Không đung đưa thân người tạo đà.",
+            stars:{diff:1,effect:2,beginner:5}, wrong:"Đung đưa cả thân người để kéo nặng hơn.", right:"Chỉ di chuyển khớp khuỷu tay."}),
+          ex({name:"Plank", machine:"Sàn tập / thảm", group:"Core", sets:3, reps:"25-30s giữ", tempo:"-", rpe:"5", rest:"45s", goal:"Tăng sức bền trọng tâm.", guide:"Giữ thân thẳng, siết bụng và mông.", tip:"Thở đều, không nín thở.",
+            stars:{diff:2,effect:3,beginner:4}, wrong:"Võng lưng dưới.", right:"Giữ đường thẳng đầu-hông-gót chân."})
+        ]},
+      {name:"Buổi 4 — Full Body Tổng Hợp", note:"Ôn lại toàn bộ kỹ thuật tuần 1.", cardio:"Treadmill 20 phút",
+        exs:[
+          ex({name:"Đẩy đùi", machine:"Leg Press", group:"Đùi / Mông", sets:3, reps:"12", tempo:"2-1-2", rpe:"6", rest:"75s", goal:"Củng cố kỹ thuật, tăng nhẹ tạ.", guide:"Đẩy bằng gót chân, kiểm soát biên độ.", tip:"So sánh cảm giác với buổi 1 để thấy tiến bộ.",
+            stars:{diff:2,effect:4,beginner:5}, wrong:"Khóa gối, nhấc mông.", right:"Kiểm soát toàn biên độ."}),
+          ex({name:"Đẩy hông", machine:"Hip Thrust Machine", group:"Mông", sets:3, reps:"12", tempo:"2-1-2", rpe:"6", rest:"75s", goal:"Ôn kỹ thuật siết mông đúng.", guide:"Đẩy hông lên, siết mông ở đỉnh.", tip:"Tăng tạ nhẹ nếu kỹ thuật đã ổn.",
+            stars:{diff:2,effect:5,beginner:5}, wrong:"Ưỡn lưng thay vì siết mông.", right:"Siết mông chặt ở đỉnh động tác."}),
+          ex({name:"Kéo xô", machine:"Lat Pulldown", group:"Lưng", sets:3, reps:"12", tempo:"2-1-2", rpe:"6", rest:"60-75s", goal:"Ôn kỹ thuật kéo lưng.", guide:"Kéo thanh xuống ngực trên, siết lưng.", tip:"Không ngả người ra sau quá mức.",
+            stars:{diff:2,effect:4,beginner:4}, wrong:"Ngả người ra sau kéo bằng đà.", right:"Ngực ưỡn nhẹ, kéo bằng lực lưng."}),
+          ex({name:"Đẩy ngực", machine:"Chest Press", group:"Ngực", sets:3, reps:"12", tempo:"2-1-2", rpe:"6", rest:"60-75s", goal:"Ôn kỹ thuật đẩy ngực.", guide:"Đẩy tay nắm ra trước, không khóa khuỷu.", tip:"Giữ lưng áp sát ghế.",
+            stars:{diff:1,effect:3,beginner:5}, wrong:"Nhấc lưng khỏi ghế.", right:"Giữ lưng áp sát ghế suốt hiệp."}),
+          ex({name:"Gập bụng cáp", machine:"Cable Machine", group:"Bụng", sets:3, reps:"15", tempo:"2-1-2", rpe:"5", rest:"45s", goal:"Kích hoạt cơ bụng.", guide:"Quỳ trước máy cáp cao, gập người cong lưng trên xuống.", tip:"Gập bằng cơ bụng, không kéo bằng tay.",
+            stars:{diff:2,effect:3,beginner:4}, wrong:"Kéo bằng lực tay và vai thay vì bụng.", right:"Cong cột sống bằng lực siết bụng."})
+        ]}
+    ]
+  }
+};
+
+program[2] = { // TUẦN 2 — Tăng cường độ nhẹ
+  title:"Tuần 2 — Xây nền tảng sức mạnh",
+  days:[
+    {name:"Buổi 1 — Lower Body Glute Focus", note:"Tăng nhẹ tạ so với tuần 1, tập trung mông.", cardio:"Stair Climber 15 phút",
+      exs:[
+        ex({name:"Đẩy hông", machine:"Hip Thrust Machine", group:"Mông", sets:4, reps:"12", tempo:"2-1-2", rpe:"6-7", rest:"75s", goal:"Tăng cường độ, phát triển vòng 3.", guide:"Đẩy hông lên, siết mông 2 giây ở đỉnh.", tip:"Tăng tạ 2.5-5kg so với tuần 1 nếu kỹ thuật ổn.",
+          stars:{diff:3,effect:5,beginner:4}, wrong:"Ưỡn lưng dưới quá mức.", right:"Siết mông thật chặt, lưng trung tính."}),
+        ex({name:"Đẩy đùi (chân rộng)", machine:"Leg Press", group:"Đùi trong / Mông", sets:4, reps:"12", tempo:"2-1-2", rpe:"6-7", rest:"75s", goal:"Kích hoạt thêm cơ đùi trong và mông.", guide:"Đặt chân rộng hơn vai, mũi chân hơi mở ra ngoài.", tip:"Đẩy đều lực hai chân.",
+          stars:{diff:3,effect:4,beginner:4}, wrong:"Dồn lực lệch một bên chân.", right:"Đẩy đều hai chân, kiểm soát biên độ."}),
+        ex({name:"Đá đùi ra ngoài", machine:"Hip Abductor", group:"Mông nhỡ", sets:4, reps:"15", tempo:"2-1-2", rpe:"6", rest:"60s", goal:"Định hình hông rộng săn chắc.", guide:"Đẩy đùi ra ngoài, siết mông ở điểm cuối.", tip:"Tăng số hiệp so với tuần 1.",
+          stars:{diff:2,effect:4,beginner:5}, wrong:"Dùng lực bật thay vì cơ mông.", right:"Đẩy chậm, kiểm soát toàn biên độ."}),
+        ex({name:"Gập gối nằm", machine:"Lying Leg Curl", group:"Đùi sau", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"6", rest:"60s", goal:"Cân bằng lực đùi trước-sau.", guide:"Kéo gót về mông, giữ hông áp ghế.", tip:"Không ưỡn lưng khi kéo.",
+          stars:{diff:2,effect:4,beginner:4}, wrong:"Ưỡn lưng, nhấc hông khỏi ghế.", right:"Giữ hông cố định suốt hiệp."}),
+        ex({name:"Plank nâng cao", machine:"Sàn tập", group:"Core", sets:3, reps:"35-40s giữ", tempo:"-", rpe:"6", rest:"45s", goal:"Tăng sức bền trọng tâm.", guide:"Giữ thân thẳng, có thể nâng nhẹ một chân luân phiên.", tip:"Tăng thời gian giữ 5-10s so với tuần 1.",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Võng lưng khi mỏi.", right:"Dừng lại nghỉ nếu không giữ được form."})
+      ]},
+    {name:"Buổi 2 — Upper Body Kéo (Pull)", note:"Tập nhóm cơ kéo: lưng, tay sau vai.", cardio:"Bike 15 phút",
+      exs:[
+        ex({name:"Kéo xô", machine:"Lat Pulldown", group:"Lưng", sets:4, reps:"12", tempo:"2-1-2", rpe:"6-7", rest:"75s", goal:"Tăng cường độ lưng xô.", guide:"Kéo thanh xuống ngực trên, siết lưng 1 giây.", tip:"Tăng tạ nhẹ nếu tuần 1 dễ dàng.",
+          stars:{diff:3,effect:4,beginner:4}, wrong:"Ngả người ra sau kéo bằng đà.", right:"Ngực ưỡn nhẹ, siết lưng chủ động."}),
+        ex({name:"Kéo cáp ngồi", machine:"Seated Row", group:"Lưng giữa", sets:4, reps:"12", tempo:"2-1-2", rpe:"6-7", rest:"75s", goal:"Cải thiện tư thế, lưng thẳng.", guide:"Kéo tay về bụng dưới, siết bả vai.", tip:"Giữ lưng thẳng suốt hiệp.",
+          stars:{diff:3,effect:4,beginner:4}, wrong:"Gù lưng, dùng đà thân trên.", right:"Ngồi thẳng, siết bả vai ở cuối."}),
+        ex({name:"Máy hỗ trợ kéo xà", machine:"Assisted Pull Up", group:"Lưng / Tay sau", sets:3, reps:"8-10", tempo:"2-1-2", rpe:"6", rest:"75-90s", goal:"Làm quen động tác kéo xà có hỗ trợ.", guide:"Chọn mức hỗ trợ cao, kéo người lên đến cằm ngang xà.", tip:"Chọn mức hỗ trợ để hoàn thành đủ số reps với form đúng.",
+          stars:{diff:4,effect:5,beginner:3}, wrong:"Đung đưa người tạo đà.", right:"Kéo chậm, cảm nhận lưng xô hoạt động."}),
+        ex({name:"Máy cáp — Gập tay trước", machine:"Cable Machine", group:"Tay trước", sets:3, reps:"12", tempo:"2-1-2", rpe:"6", rest:"45-60s", goal:"Tăng cường độ tay trước.", guide:"Giữ khuỷu tay cố định, gập cẳng tay lên.", tip:"Không đung đưa thân người.",
+          stars:{diff:2,effect:2,beginner:5}, wrong:"Đung đưa thân người tạo đà.", right:"Chỉ di chuyển khớp khuỷu tay."}),
+        ex({name:"Plank", machine:"Sàn tập", group:"Core", sets:3, reps:"35s giữ", tempo:"-", rpe:"6", rest:"45s", goal:"Duy trì sức bền trọng tâm.", guide:"Giữ thân thẳng, siết bụng mông.", tip:"Thở đều trong suốt thời gian giữ.",
+          stars:{diff:2,effect:3,beginner:4}, wrong:"Võng lưng dưới.", right:"Giữ đường thẳng đầu-hông-gót."})
+      ]},
+    {name:"Buổi 3 — Upper Body Đẩy (Push)", note:"Tập nhóm cơ đẩy: ngực, vai, tay sau.", cardio:"Elliptical 15 phút",
+      exs:[
+        ex({name:"Đẩy ngực", machine:"Chest Press", group:"Ngực", sets:4, reps:"12", tempo:"2-1-2", rpe:"6-7", rest:"75s", goal:"Tăng cường độ ngực.", guide:"Đẩy tay nắm ra trước, không khóa khuỷu.", tip:"Tăng tạ nhẹ nếu tuần 1 dễ.",
+          stars:{diff:2,effect:3,beginner:5}, wrong:"Nhấc lưng khỏi ghế.", right:"Giữ lưng áp sát ghế suốt hiệp."}),
+        ex({name:"Ép ngực", machine:"Pec Deck", group:"Ngực", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"6", rest:"60s", goal:"Cô lập cơ ngực, tăng độ nét.", guide:"Ép hai tay vào nhau, siết ngực ở điểm cuối.", tip:"Không dùng đà đập nhanh.",
+          stars:{diff:2,effect:3,beginner:5}, wrong:"Dùng đà đập hai tay vào nhau.", right:"Ép chậm, kiểm soát cả hai chiều."}),
+        ex({name:"Đẩy vai", machine:"Shoulder Press", group:"Vai", sets:4, reps:"12", tempo:"2-1-2", rpe:"6-7", rest:"75s", goal:"Tạo dáng vai gọn, thon.", guide:"Đẩy thẳng lên, giữ core siết chặt.", tip:"Không ưỡn lưng dưới quá mức.",
+          stars:{diff:3,effect:3,beginner:4}, wrong:"Ưỡn cong lưng dưới.", right:"Giữ lưng áp ghế, core siết chặt."}),
+        ex({name:"Cáp chéo đôi", machine:"Cable Crossover", group:"Ngực trong", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"6", rest:"60s", goal:"Tạo đường nét ngực săn chắc.", guide:"Bước chân trước-sau vững, khép hai tay vào nhau trước ngực.", tip:"Siết ngực ở điểm giao nhau giữa ngực.",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Đứng không vững, thân xoay lệch.", right:"Giữ thân ổn định, chỉ di chuyển tay."}),
+        ex({name:"Gập bụng cáp", machine:"Cable Machine", group:"Bụng", sets:3, reps:"15", tempo:"2-1-2", rpe:"6", rest:"45s", goal:"Tăng sức mạnh cơ bụng.", guide:"Quỳ trước máy, gập cong lưng trên bằng lực bụng.", tip:"Không kéo bằng tay và vai.",
+          stars:{diff:2,effect:3,beginner:4}, wrong:"Kéo bằng lực tay thay vì bụng.", right:"Cong cột sống bằng lực siết bụng."})
+      ]},
+    {name:"Buổi 4 — Full Body Tăng Cường", note:"Tổng hợp toàn thân, cường độ tuần 2.", cardio:"Treadmill 20 phút",
+      exs:[
+        ex({name:"Đẩy đùi", machine:"Leg Press", group:"Đùi / Mông", sets:4, reps:"12", tempo:"2-1-2", rpe:"7", rest:"75-90s", goal:"Tăng sức mạnh chân tổng thể.", guide:"Đẩy bằng gót chân, kiểm soát biên độ.", tip:"Đây là bài nặng nhất tuần — ưu tiên kỹ thuật.",
+          stars:{diff:3,effect:4,beginner:4}, wrong:"Khóa gối, nhấc mông khỏi ghế.", right:"Kiểm soát toàn biên độ chuyển động."}),
+        ex({name:"Đẩy hông", machine:"Hip Thrust Machine", group:"Mông", sets:3, reps:"12", tempo:"2-1-2", rpe:"7", rest:"75s", goal:"Củng cố sức mạnh mông.", guide:"Siết mông 2 giây ở đỉnh động tác.", tip:"Giữ lưng dưới trung tính, không ưỡn.",
+          stars:{diff:3,effect:5,beginner:4}, wrong:"Ưỡn lưng dưới thay vì siết mông.", right:"Siết mông chặt, cột sống trung tính."}),
+        ex({name:"Kéo xô", machine:"Lat Pulldown", group:"Lưng", sets:3, reps:"12", tempo:"2-1-2", rpe:"6-7", rest:"75s", goal:"Duy trì sức mạnh lưng.", guide:"Kéo thanh xuống ngực trên.", tip:"Siết lưng chủ động, không kéo bằng tay.",
+          stars:{diff:2,effect:4,beginner:4}, wrong:"Kéo chủ yếu bằng tay.", right:"Kích hoạt lưng xô trước khi kéo."}),
+        ex({name:"Đẩy vai", machine:"Shoulder Press", group:"Vai", sets:3, reps:"12", tempo:"2-1-2", rpe:"6-7", rest:"60-75s", goal:"Hoàn thiện dáng vai.", guide:"Đẩy thẳng lên, core siết chặt.", tip:"Không dùng đà bật từ chân.",
+          stars:{diff:3,effect:3,beginner:4}, wrong:"Dùng đà từ chân/lưng để đẩy.", right:"Chỉ dùng lực vai, thân người cố định."}),
+        ex({name:"Plank", machine:"Sàn tập", group:"Core", sets:3, reps:"40s giữ", tempo:"-", rpe:"6", rest:"45s", goal:"Tăng sức bền trọng tâm.", guide:"Giữ thân thẳng, siết bụng mông.", tip:"Nghỉ giữa chừng nếu mất form thay vì cố giữ sai.",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Võng lưng khi mỏi.", right:"Dừng nghỉ khi không giữ được đường thẳng."})
+      ]}
+  ]
+};
+
+program[3] = { // TUẦN 3 — Nâng cường độ
+  title:"Tuần 3 — Nâng cường độ, hoàn thiện kỹ thuật",
+  days:[
+    {name:"Buổi 1 — Lower Body Glute Focus+", note:"Tăng tạ, thêm hiệp so với tuần 2.", cardio:"Stair Climber 18 phút",
+      exs:[
+        ex({name:"Đẩy hông", machine:"Hip Thrust Machine", group:"Mông", sets:4, reps:"10-12", tempo:"2-2-2", rpe:"7-8", rest:"90s", goal:"Tăng cường độ phát triển vòng 3.", guide:"Siết mông 2 giây ở đỉnh, hạ chậm có kiểm soát.", tip:"Tăng tạ 2.5-5kg so với tuần 2 nếu form ổn định.",
+          stars:{diff:3,effect:5,beginner:3}, wrong:"Ưỡn lưng dưới quá mức khi mỏi.", right:"Giữ cột sống trung tính, siết mông chủ động."}),
+        ex({name:"Smith Machine Squat", machine:"Smith Machine", group:"Đùi / Mông", sets:4, reps:"10-12", tempo:"2-1-2", rpe:"7", rest:"90s", goal:"Học squat có ray hỗ trợ, an toàn hơn.", guide:"Đặt thanh trên bẫy vai, hạ người gập hông-gối, đầu gối theo mũi chân.", tip:"Bắt đầu tạ nhẹ để quen quỹ đạo trước khi tăng.",
+          stars:{diff:4,effect:5,beginner:3}, wrong:"Cúi gập lưng thay vì gập hông-gối.", right:"Giữ cột sống trung tính, ngực hướng thẳng."}),
+        ex({name:"Đá đùi ra ngoài", machine:"Hip Abductor", group:"Mông nhỡ", sets:4, reps:"15", tempo:"2-1-2", rpe:"7", rest:"60s", goal:"Định hình hông săn chắc.", guide:"Đẩy đùi ra ngoài, siết mông ở điểm cuối.", tip:"Tăng tạ nhẹ so với tuần trước.",
+          stars:{diff:2,effect:4,beginner:5}, wrong:"Dùng lực bật thay vì cơ mông.", right:"Đẩy chậm, kiểm soát toàn biên độ."}),
+        ex({name:"Gập gối ngồi", machine:"Seated Leg Curl", group:"Đùi sau", sets:4, reps:"12", tempo:"2-1-2", rpe:"7", rest:"60-75s", goal:"Tăng sức mạnh đùi sau.", guide:"Kéo gót chân xuống, giữ hông cố định.", tip:"Dừng 1 giây ở điểm cuối trước khi thả.",
+          stars:{diff:2,effect:4,beginner:4}, wrong:"Nhấc hông khỏi ghế để kéo nặng hơn.", right:"Giữ hông cố định suốt hiệp."}),
+        ex({name:"Plank nâng cao", machine:"Sàn tập", group:"Core", sets:3, reps:"45s giữ", tempo:"-", rpe:"7", rest:"45s", goal:"Tăng sức bền trọng tâm.", guide:"Giữ thân thẳng, có thể thêm chuyển động tay chạm vai.", tip:"Ưu tiên form đúng hơn thời gian dài.",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Võng lưng khi mỏi.", right:"Dừng nghỉ nếu mất form."})
+      ]},
+    {name:"Buổi 2 — Upper Body Kéo+", note:"Tăng cường độ nhóm cơ kéo.", cardio:"Bike 18 phút",
+      exs:[
+        ex({name:"Máy hỗ trợ kéo xà", machine:"Assisted Pull Up", group:"Lưng / Tay sau", sets:4, reps:"8-10", tempo:"2-1-2", rpe:"7", rest:"90s", goal:"Tăng sức mạnh kéo, giảm mức hỗ trợ.", guide:"Giảm mức hỗ trợ so với tuần 2 nếu form đã vững.", tip:"Kéo chậm, cảm nhận lưng xô hoạt động chính.",
+          stars:{diff:4,effect:5,beginner:3}, wrong:"Đung đưa người tạo đà.", right:"Kéo kiểm soát, không dùng quán tính."}),
+        ex({name:"Kéo xô", machine:"Lat Pulldown", group:"Lưng", sets:4, reps:"10-12", tempo:"2-1-2", rpe:"7", rest:"75-90s", goal:"Tăng cường độ lưng xô.", guide:"Kéo thanh xuống ngực trên, siết lưng 1 giây.", tip:"Tăng tạ so với tuần 2 nếu hoàn thành đủ reps dễ dàng.",
+          stars:{diff:3,effect:4,beginner:4}, wrong:"Ngả người ra sau kéo bằng đà.", right:"Ngực ưỡn nhẹ, siết lưng chủ động."}),
+        ex({name:"Kéo cáp ngồi", machine:"Seated Row", group:"Lưng giữa", sets:4, reps:"10-12", tempo:"2-1-2", rpe:"7", rest:"75-90s", goal:"Cải thiện tư thế, tăng sức mạnh lưng giữa.", guide:"Kéo tay về bụng dưới, siết bả vai lại.", tip:"Giữ lưng thẳng, không gù khi mỏi.",
+          stars:{diff:3,effect:4,beginner:4}, wrong:"Gù lưng khi kéo nặng.", right:"Ngồi thẳng, siết bả vai ở điểm cuối."}),
+        ex({name:"Máy cáp — Gập tay trước", machine:"Cable Machine", group:"Tay trước", sets:3, reps:"12", tempo:"2-1-2", rpe:"6-7", rest:"60s", goal:"Hoàn thiện dáng tay.", guide:"Giữ khuỷu tay cố định, gập cẳng tay lên.", tip:"Tăng tạ nhẹ nếu thấy dễ.",
+          stars:{diff:2,effect:2,beginner:5}, wrong:"Đung đưa thân người tạo đà.", right:"Chỉ di chuyển khớp khuỷu tay."}),
+        ex({name:"Plank", machine:"Sàn tập", group:"Core", sets:3, reps:"45s giữ", tempo:"-", rpe:"7", rest:"45s", goal:"Duy trì sức bền trọng tâm.", guide:"Giữ thân thẳng, siết bụng mông.", tip:"Thở đều trong suốt thời gian giữ.",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Võng lưng dưới.", right:"Giữ đường thẳng đầu-hông-gót."})
+      ]},
+    {name:"Buổi 3 — Upper Body Đẩy+", note:"Tăng cường độ nhóm cơ đẩy.", cardio:"Elliptical 18 phút",
+      exs:[
+        ex({name:"Đẩy ngực", machine:"Chest Press", group:"Ngực", sets:4, reps:"10-12", tempo:"2-1-2", rpe:"7", rest:"75-90s", goal:"Tăng sức mạnh ngực.", guide:"Đẩy tay nắm ra trước, không khóa khuỷu.", tip:"Tăng tạ so với tuần 2 nếu form ổn định.",
+          stars:{diff:3,effect:3,beginner:4}, wrong:"Nhấc lưng khỏi ghế khi đẩy nặng.", right:"Giữ lưng áp sát ghế suốt hiệp."}),
+        ex({name:"Cáp chéo đôi", machine:"Cable Crossover", group:"Ngực trong", sets:4, reps:"12", tempo:"2-1-2", rpe:"7", rest:"60-75s", goal:"Tăng độ nét cơ ngực.", guide:"Bước chân trước-sau vững, khép hai tay vào nhau.", tip:"Siết ngực ở điểm giao nhau.",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Đứng không vững khiến thân xoay lệch.", right:"Giữ thân ổn định, chỉ di chuyển tay."}),
+        ex({name:"Đẩy vai", machine:"Shoulder Press", group:"Vai", sets:4, reps:"10-12", tempo:"2-1-2", rpe:"7", rest:"75-90s", goal:"Tăng sức mạnh và độ nét vai.", guide:"Đẩy thẳng lên, giữ core siết chặt.", tip:"Không dùng đà từ chân hoặc lưng.",
+          stars:{diff:3,effect:3,beginner:4}, wrong:"Ưỡn cong lưng dưới để đẩy nặng hơn.", right:"Giữ lưng áp ghế, chỉ dùng lực vai."}),
+        ex({name:"Ép ngực", machine:"Pec Deck", group:"Ngực", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"6-7", rest:"60s", goal:"Hoàn thiện độ săn chắc ngực.", guide:"Ép hai tay vào nhau, kiểm soát khi mở ra.", tip:"Siết ngực 1 giây ở điểm khép gần nhau nhất.",
+          stars:{diff:2,effect:3,beginner:5}, wrong:"Dùng đà đập hai tay vào nhau.", right:"Ép chậm, kiểm soát cả hai chiều."}),
+        ex({name:"Gập bụng cáp", machine:"Cable Machine", group:"Bụng", sets:4, reps:"15", tempo:"2-1-2", rpe:"7", rest:"45-60s", goal:"Tăng sức mạnh cơ bụng.", guide:"Quỳ trước máy, gập cong lưng trên bằng lực bụng.", tip:"Không kéo chủ yếu bằng tay và vai.",
+          stars:{diff:3,effect:3,beginner:4}, wrong:"Kéo bằng lực tay thay vì bụng.", right:"Cong cột sống bằng lực siết bụng."})
+      ]},
+    {name:"Buổi 4 — Full Body Sức Mạnh", note:"Tổng hợp toàn thân cường độ cao nhất tuần.", cardio:"Treadmill 20 phút",
+      exs:[
+        ex({name:"Smith Machine Squat", machine:"Smith Machine", group:"Đùi / Mông", sets:4, reps:"10", tempo:"2-1-2", rpe:"7-8", rest:"90s", goal:"Tăng sức mạnh chân toàn diện.", guide:"Hạ người gập hông-gối, giữ cột sống trung tính.", tip:"Ưu tiên kỹ thuật trước khi tăng tạ.",
+          stars:{diff:4,effect:5,beginner:3}, wrong:"Đặt chân quá gần thanh tạ gây mất thăng bằng.", right:"Đặt chân rộng vai, trọng lượng dồn đều."}),
+        ex({name:"Đẩy hông", machine:"Hip Thrust Machine", group:"Mông", sets:4, reps:"10", tempo:"2-2-2", rpe:"7-8", rest:"90s", goal:"Đỉnh cao sức mạnh mông trong tuần.", guide:"Siết mông 2 giây ở đỉnh, hạ chậm có kiểm soát.", tip:"Đây là bài nặng nhất — giữ form là ưu tiên số 1.",
+          stars:{diff:3,effect:5,beginner:3}, wrong:"Ưỡn lưng dưới khi mỏi.", right:"Giữ cột sống trung tính, siết mông chủ động."}),
+        ex({name:"Kéo xô", machine:"Lat Pulldown", group:"Lưng", sets:3, reps:"10-12", tempo:"2-1-2", rpe:"7", rest:"75s", goal:"Duy trì sức mạnh lưng.", guide:"Kéo thanh xuống ngực trên, siết lưng chủ động.", tip:"Không kéo chủ yếu bằng tay.",
+          stars:{diff:3,effect:4,beginner:4}, wrong:"Kéo chủ yếu bằng lực tay.", right:"Kích hoạt lưng xô trước khi kéo."}),
+        ex({name:"Đẩy ngực", machine:"Chest Press", group:"Ngực", sets:3, reps:"10-12", tempo:"2-1-2", rpe:"7", rest:"75s", goal:"Duy trì sức mạnh ngực.", guide:"Đẩy tay nắm ra trước, kiểm soát khi hạ.", tip:"Thở ra khi đẩy, hít vào khi hạ.",
+          stars:{diff:2,effect:3,beginner:4}, wrong:"Nhấc lưng khỏi ghế.", right:"Giữ lưng áp sát ghế suốt hiệp."}),
+        ex({name:"Plank", machine:"Sàn tập", group:"Core", sets:3, reps:"50s giữ", tempo:"-", rpe:"7", rest:"45s", goal:"Đỉnh cao sức bền trọng tâm tuần 3.", guide:"Giữ thân thẳng, siết bụng và mông.", tip:"Nghỉ giữa chừng nếu mất form thay vì cố gắng quá sức.",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Võng lưng khi mỏi.", right:"Dừng nghỉ khi không giữ được đường thẳng."})
+      ]}
+  ]
+};
+
+program[4] = { // TUẦN 4 — Hoàn thiện & bứt phá
+  title:"Tuần 4 — Hoàn thiện nền tảng, bứt phá",
+  days:[
+    {name:"Buổi 1 — Lower Body Đỉnh Cao", note:"Cường độ cao nhất chương trình cho nhóm chân/mông.", cardio:"Stair Climber 20 phút",
+      exs:[
+        ex({name:"Đẩy hông", machine:"Hip Thrust Machine", group:"Mông", sets:4, reps:"10", tempo:"2-2-2", rpe:"8", rest:"90-120s", goal:"Đạt sức mạnh mông cao nhất chương trình.", guide:"Siết mông 2 giây ở đỉnh, kiểm soát khi hạ.", tip:"Nếu hoàn thành dễ dàng, đây là nền tảng để tăng tạ ở chương trình tiếp theo.",
+          stars:{diff:4,effect:5,beginner:3}, wrong:"Ưỡn lưng dưới khi mỏi ở hiệp cuối.", right:"Giữ cột sống trung tính suốt bài tập."}),
+        ex({name:"Smith Machine Squat", machine:"Smith Machine", group:"Đùi / Mông", sets:4, reps:"10", tempo:"2-1-2", rpe:"8", rest:"90-120s", goal:"Hoàn thiện kỹ thuật squat có hỗ trợ.", guide:"Hạ người sâu vừa phải, giữ ngực hướng thẳng.", tip:"Đánh giá lại form so với tuần 3 để thấy tiến bộ.",
+          stars:{diff:4,effect:5,beginner:3}, wrong:"Cúi gập lưng thay vì gập hông-gối.", right:"Giữ cột sống trung tính, đầu gối theo mũi chân."}),
+        ex({name:"Gập gối nằm", machine:"Lying Leg Curl", group:"Đùi sau", sets:4, reps:"12", tempo:"2-1-2", rpe:"7", rest:"75s", goal:"Hoàn thiện cân bằng cơ đùi.", guide:"Kéo gót về mông, giữ hông áp ghế.", tip:"Tập biên độ chậm để tối ưu hiệu quả.",
+          stars:{diff:2,effect:4,beginner:4}, wrong:"Ưỡn lưng, nhấc hông khỏi ghế.", right:"Giữ hông cố định suốt hiệp."}),
+        ex({name:"Đá đùi ra ngoài", machine:"Hip Abductor", group:"Mông nhỡ", sets:4, reps:"15", tempo:"2-1-2", rpe:"7", rest:"60s", goal:"Hoàn thiện dáng hông mông.", guide:"Đẩy đùi ra ngoài, siết mông ở điểm cuối.", tip:"So sánh mức tạ với buổi đầu tiên để thấy tiến bộ.",
+          stars:{diff:2,effect:4,beginner:5}, wrong:"Dùng lực bật thay vì cơ mông.", right:"Đẩy chậm, kiểm soát toàn biên độ."}),
+        ex({name:"Plank nâng cao", machine:"Sàn tập", group:"Core", sets:3, reps:"50-60s giữ", tempo:"-", rpe:"7-8", rest:"45s", goal:"Đỉnh cao sức bền trọng tâm.", guide:"Giữ thân thẳng, có thể thêm chuyển động tay chạm vai.", tip:"Đây là bài kiểm tra tiến bộ so với buổi 1.",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Võng lưng khi mỏi.", right:"Dừng nghỉ nếu mất form."})
+      ]},
+    {name:"Buổi 2 — Upper Body Kéo Hoàn Thiện", note:"Đỉnh cao nhóm cơ kéo trong chương trình.", cardio:"Bike 20 phút",
+      exs:[
+        ex({name:"Máy hỗ trợ kéo xà", machine:"Assisted Pull Up", group:"Lưng / Tay sau", sets:4, reps:"8-10", tempo:"2-1-2", rpe:"8", rest:"90-120s", goal:"Đạt sức mạnh kéo cao nhất chương trình.", guide:"Giảm mức hỗ trợ tối đa có thể trong khi vẫn giữ form đúng.", tip:"So sánh mức hỗ trợ với buổi đầu tiên để thấy tiến bộ rõ rệt.",
+          stars:{diff:4,effect:5,beginner:2}, wrong:"Đung đưa người tạo đà ở hiệp cuối.", right:"Kéo kiểm soát dù mệt, ưu tiên chất lượng hơn số lượng."}),
+        ex({name:"Kéo xô", machine:"Lat Pulldown", group:"Lưng", sets:4, reps:"10", tempo:"2-1-2", rpe:"7-8", rest:"90s", goal:"Hoàn thiện sức mạnh lưng xô.", guide:"Kéo thanh xuống ngực trên, siết lưng chủ động.", tip:"Đây là mức tạ cao nhất chương trình cho bài này.",
+          stars:{diff:3,effect:4,beginner:4}, wrong:"Ngả người ra sau kéo bằng đà.", right:"Ngực ưỡn nhẹ, siết lưng chủ động."}),
+        ex({name:"Kéo cáp ngồi", machine:"Seated Row", group:"Lưng giữa", sets:4, reps:"10", tempo:"2-1-2", rpe:"7-8", rest:"90s", goal:"Hoàn thiện tư thế lưng thẳng.", guide:"Kéo tay về bụng dưới, siết bả vai lại.", tip:"Giữ lưng thẳng dù ở hiệp cuối mệt mỏi.",
+          stars:{diff:3,effect:4,beginner:4}, wrong:"Gù lưng khi kéo nặng.", right:"Ngồi thẳng, siết bả vai ở điểm cuối."}),
+        ex({name:"Máy cáp — Gập tay trước", machine:"Cable Machine", group:"Tay trước", sets:3, reps:"12", tempo:"2-1-2", rpe:"7", rest:"60s", goal:"Hoàn thiện dáng tay săn chắc.", guide:"Giữ khuỷu tay cố định, gập cẳng tay lên.", tip:"Đây là mức tạ cao nhất chương trình cho bài này.",
+          stars:{diff:2,effect:2,beginner:5}, wrong:"Đung đưa thân người tạo đà.", right:"Chỉ di chuyển khớp khuỷu tay."}),
+        ex({name:"Plank", machine:"Sàn tập", group:"Core", sets:3, reps:"55s giữ", tempo:"-", rpe:"7", rest:"45s", goal:"Duy trì sức bền trọng tâm.", guide:"Giữ thân thẳng, siết bụng mông.", tip:"Thở đều trong suốt thời gian giữ.",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Võng lưng dưới.", right:"Giữ đường thẳng đầu-hông-gót."})
+      ]},
+    {name:"Buổi 3 — Upper Body Đẩy Hoàn Thiện", note:"Đỉnh cao nhóm cơ đẩy trong chương trình.", cardio:"Elliptical 20 phút",
+      exs:[
+        ex({name:"Đẩy ngực", machine:"Chest Press", group:"Ngực", sets:4, reps:"10", tempo:"2-1-2", rpe:"8", rest:"90s", goal:"Đạt sức mạnh ngực cao nhất chương trình.", guide:"Đẩy tay nắm ra trước, kiểm soát khi hạ.", tip:"So sánh mức tạ với buổi 1 để thấy sự tiến bộ.",
+          stars:{diff:3,effect:3,beginner:4}, wrong:"Nhấc lưng khỏi ghế khi đẩy nặng.", right:"Giữ lưng áp sát ghế suốt hiệp."}),
+        ex({name:"Đẩy vai", machine:"Shoulder Press", group:"Vai", sets:4, reps:"10", tempo:"2-1-2", rpe:"8", rest:"90s", goal:"Hoàn thiện dáng vai săn chắc.", guide:"Đẩy thẳng lên, giữ core siết chặt.", tip:"Đây là mức tạ cao nhất chương trình cho bài này.",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Ưỡn cong lưng dưới để đẩy nặng hơn.", right:"Giữ lưng áp ghế, chỉ dùng lực vai."}),
+        ex({name:"Cáp chéo đôi", machine:"Cable Crossover", group:"Ngực trong", sets:4, reps:"12", tempo:"2-1-2", rpe:"7-8", rest:"75s", goal:"Hoàn thiện độ nét ngực.", guide:"Bước chân trước-sau vững, khép hai tay vào nhau.", tip:"Siết ngực ở điểm giao nhau giữa ngực.",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Đứng không vững khiến thân xoay lệch.", right:"Giữ thân ổn định, chỉ di chuyển tay."}),
+        ex({name:"Ép ngực", machine:"Pec Deck", group:"Ngực", sets:3, reps:"12-15", tempo:"2-1-2", rpe:"7", rest:"60s", goal:"Hoàn thiện độ săn chắc ngực.", guide:"Ép hai tay vào nhau, kiểm soát khi mở ra.", tip:"Siết ngực 1 giây ở điểm khép gần nhau nhất.",
+          stars:{diff:2,effect:3,beginner:5}, wrong:"Dùng đà đập hai tay vào nhau.", right:"Ép chậm, kiểm soát cả hai chiều."}),
+        ex({name:"Gập bụng cáp", machine:"Cable Machine", group:"Bụng", sets:4, reps:"15", tempo:"2-1-2", rpe:"7-8", rest:"60s", goal:"Hoàn thiện sức mạnh cơ bụng.", guide:"Quỳ trước máy, gập cong lưng trên bằng lực bụng.", tip:"Đây là mức tạ cao nhất chương trình cho bài này.",
+          stars:{diff:3,effect:3,beginner:4}, wrong:"Kéo bằng lực tay thay vì bụng.", right:"Cong cột sống bằng lực siết bụng."})
+      ]},
+    {name:"Buổi 4 — Full Body Tổng Kết", note:"Buổi tổng kết 28 ngày — đánh giá tiến bộ toàn diện.", cardio:"Treadmill 25 phút",
+      exs:[
+        ex({name:"Smith Machine Squat", machine:"Smith Machine", group:"Đùi / Mông", sets:4, reps:"10", tempo:"2-1-2", rpe:"8", rest:"90-120s", goal:"Kiểm tra tiến bộ sức mạnh chân sau 28 ngày.", guide:"Hạ người gập hông-gối, giữ cột sống trung tính.", tip:"So sánh mức tạ và cảm giác với buổi 1 ngày đầu tiên.",
+          stars:{diff:4,effect:5,beginner:3}, wrong:"Cúi gập lưng thay vì gập hông-gối.", right:"Giữ cột sống trung tính, ngực hướng thẳng."}),
+        ex({name:"Đẩy hông", machine:"Hip Thrust Machine", group:"Mông", sets:4, reps:"10", tempo:"2-2-2", rpe:"8", rest:"90-120s", goal:"Kiểm tra sức mạnh mông sau 28 ngày.", guide:"Siết mông 2 giây ở đỉnh, hạ chậm có kiểm soát.", tip:"Đây là bài đại diện rõ nhất cho tiến bộ vòng 3.",
+          stars:{diff:4,effect:5,beginner:3}, wrong:"Ưỡn lưng dưới khi mỏi.", right:"Giữ cột sống trung tính, siết mông chủ động."}),
+        ex({name:"Kéo xô", machine:"Lat Pulldown", group:"Lưng", sets:3, reps:"10", tempo:"2-1-2", rpe:"7-8", rest:"90s", goal:"Kiểm tra sức mạnh lưng sau 28 ngày.", guide:"Kéo thanh xuống ngực trên, siết lưng chủ động.", tip:"Ghi lại mức tạ để làm mốc cho chương trình tiếp theo.",
+          stars:{diff:3,effect:4,beginner:4}, wrong:"Kéo chủ yếu bằng lực tay.", right:"Kích hoạt lưng xô trước khi kéo."}),
+        ex({name:"Đẩy ngực", machine:"Chest Press", group:"Ngực", sets:3, reps:"10", tempo:"2-1-2", rpe:"7-8", rest:"90s", goal:"Kiểm tra sức mạnh ngực sau 28 ngày.", guide:"Đẩy tay nắm ra trước, kiểm soát khi hạ.", tip:"Ghi lại mức tạ để làm mốc cho chương trình tiếp theo.",
+          stars:{diff:2,effect:3,beginner:4}, wrong:"Nhấc lưng khỏi ghế.", right:"Giữ lưng áp sát ghế suốt hiệp."}),
+        ex({name:"Plank", machine:"Sàn tập", group:"Core", sets:3, reps:"60s giữ", tempo:"-", rpe:"7-8", rest:"45s", goal:"Kiểm tra sức bền trọng tâm sau 28 ngày.", guide:"Giữ thân thẳng, siết bụng và mông.", tip:"So sánh thời gian giữ với buổi 1 để thấy tiến bộ rõ rệt — chúc mừng bạn đã hoàn thành!",
+          stars:{diff:3,effect:3,beginner:3}, wrong:"Võng lưng khi mỏi.", right:"Dừng nghỉ khi không giữ được đường thẳng."})
+      ]}
+  ]
+};
+
+/* =========================================================
+   RENDER FUNCTIONS
+   ========================================================= */
+
+function starsHtml(n){
+  let h='';
+  for(let i=1;i<=5;i++){ h += `<span class="${i<=n?'star-on':'star-off'}">★</span>`; }
+  return h;
+}
+
+// ---- CAM KẾT ----
+function renderCommit(){
+  const grid = document.getElementById('commitGrid');
+  grid.innerHTML = commitments.map(c=>`
+    <div class="card commit-item"><div class="tick">✓</div><p>${c}</p></div>
+  `).join('');
+}
+
+// ---- KIẾN THỨC ----
+function renderKnowledge(){
+  const grid = document.getElementById('knowledgeGrid');
+  grid.innerHTML = knowledge.map(k=>`
+    <div class="card know-card reveal">
+      <div class="ic">${k.ic}</div>
+      <h4>${k.t}</h4>
+      <p>${k.d}</p>
+      <div class="ex">${k.ex}</div>
+    </div>
+  `).join('');
+}
+
+// ---- ACCORDION (dùng chung cho warmup & faq) ----
+function buildAccordion(container, items){
+  container.innerHTML = items.map((it,i)=>`
+    <div class="accordion-item" data-i="${i}">
+      <div class="accordion-head" onclick="toggleAcc(this)">
+        <span>${it.t || it.q}</span><span class="plus">+</span>
+      </div>
+      <div class="accordion-body"><div class="accordion-body-in">${it.d || it.a}</div></div>
+    </div>
+  `).join('');
+}
+function toggleAcc(head){
+  const item = head.parentElement;
+  const body = item.querySelector('.accordion-body');
+  const isOpen = item.classList.contains('open');
+  // close siblings
+  item.parentElement.querySelectorAll('.accordion-item').forEach(el=>{
+    el.classList.remove('open');
+    el.querySelector('.accordion-body').style.maxHeight = null;
+  });
+  if(!isOpen){
+    item.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+
+// ---- PROGRAM (Giáo án) ----
+let currentWeek = 1, currentDay = 0;
+function renderWeekTabs(){
+  const wrap = document.getElementById('weekTabs');
+  wrap.innerHTML = Object.keys(program).map(w=>`
+    <button class="${+w===currentWeek?'active':''}" onclick="setWeek(${w})">Tuần ${w}</button>
+  `).join('');
+}
+function renderDayTabs(){
+  const wrap = document.getElementById('dayTabs');
+  const days = program[currentWeek].days;
+  wrap.innerHTML = days.map((d,i)=>`
+    <button class="${i===currentDay?'active':''}" onclick="setDay(${i})">Buổi ${i+1}</button>
+  `).join('');
+}
+function setWeek(w){ currentWeek = w; currentDay = 0; renderWeekTabs(); renderDayTabs(); renderSession(); }
+function setDay(i){ currentDay = i; renderDayTabs(); renderSession(); }
+
+function renderSession(){
+  const day = program[currentWeek].days[currentDay];
+  document.getElementById('sessionHead').innerHTML = `
+    <div class="session-title">${day.name}</div>
+    <div class="session-sub">${day.note} &nbsp;•&nbsp; 🏃‍♀️ Cardio sau tập: ${day.cardio}</div>
+  `;
+  document.getElementById('exerciseList').innerHTML = day.exs.map(e=>`
+    <div class="card exercise-card reveal in">
+      <div class="ex-head">
+        <div><h4>${e.name}</h4><div class="ex-machine">${e.machine} • ${e.group}</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-pill"><b>${e.sets}</b><span>Hiệp</span></div>
+        <div class="stat-pill"><b>${e.reps}</b><span>Reps</span></div>
+        <div class="stat-pill"><b>${e.tempo}</b><span>Tempo</span></div>
+        <div class="stat-pill"><b>${e.rpe}</b><span>RPE</span></div>
+        <div class="stat-pill"><b>${e.rest}</b><span>Nghỉ</span></div>
+        <div class="stat-pill"><b>🎯</b><span>Mục tiêu</span></div>
+      </div>
+      <div class="ex-detail"><b>Mục tiêu:</b> ${e.goal}</div>
+      <div class="ex-detail"><b>Hướng dẫn:</b> ${e.guide}</div>
+      <div class="ex-detail"><b>Mẹo từ PT:</b> ${e.tip}</div>
+      <div class="stars-row">
+        <div><span class="lbl">Độ khó</span>${starsHtml(e.stars.diff)}</div>
+        <div><span class="lbl">Hiệu quả</span>${starsHtml(e.stars.effect)}</div>
+        <div><span class="lbl">Phù hợp người mới</span>${starsHtml(e.stars.beginner)}</div>
+      </div>
+      <div class="mistake-grid">
+        <div class="mistake-box mistake-wrong"><b>❌ Sai</b>${e.wrong}</div>
+        <div class="mistake-box mistake-right"><b>✅ Đúng</b>${e.right}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ---- MACHINE LIBRARY ----
+function renderMachineFilter(){
+  const groups = [...new Set(machines.map(m=>m.group))];
+  const sel = document.getElementById('machineFilter');
+  groups.forEach(g=>{
+    const opt = document.createElement('option');
+    opt.value = g; opt.textContent = g;
+    sel.appendChild(opt);
+  });
+}
+function renderMachines(){
+  const q = document.getElementById('machineSearch').value.toLowerCase();
+  const filter = document.getElementById('machineFilter').value;
+  const grid = document.getElementById('machineGrid');
+  const list = machines.filter(m=>{
+    const matchQ = m.en.toLowerCase().includes(q) || m.vn.toLowerCase().includes(q);
+    const matchF = filter==='all' || m.group===filter;
+    return matchQ && matchF;
+  });
+  if(list.length===0){
+    grid.innerHTML = `<p style="color:var(--muted); grid-column:1/-1;">Không tìm thấy máy tập phù hợp.</p>`;
+    return;
+  }
+  grid.innerHTML = list.map(m=>`
+    <div class="card machine-card reveal in">
+      <div class="mimg">📷 images/${m.id}.jpg</div>
+      <div class="mbody">
+        <span class="tag-pill">${m.group}</span>
+        <h4>${m.en}</h4>
+        <div class="mtag">${m.vn}</div>
+        <div class="mrow"><b>Công dụng:</b> ${m.use}</div>
+        <details>
+          <summary>Xem chi tiết cách tập →</summary>
+          <div class="mrow"><b>Cách chỉnh máy:</b> ${m.adjust}</div>
+          <div class="mrow"><b>Tư thế đúng:</b> ${m.posture}</div>
+          <div class="mrow"><b>Sai lầm thường gặp:</b> ${m.mistake}</div>
+          <div class="mrow"><b>Tips từ PT:</b> ${m.tip}</div>
+        </details>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ---- NUTRITION cards ----
+function renderNutrition(){
+  const items = [
+    {v:"Protein", l:"1.6–2g / kg thể trọng — xây dựng & phục hồi cơ"},
+    {v:"Carb", l:"3–5g / kg thể trọng — năng lượng chính cho buổi tập"},
+    {v:"Fat", l:"0.8–1g / kg thể trọng — hỗ trợ hormone"},
+    {v:"Water", l:"35ml / kg thể trọng — trao đổi chất & hiệu suất"},
+  ];
+  document.getElementById('nutriGrid').innerHTML = items.map(i=>`
+    <div class="card nutri-card"><div class="val">${i.v}</div><div class="lbl">${i.l}</div></div>
+  `).join('');
+}
+
+/* =========================================================
+   FITNESS ASSESSMENT — BMI / Protein / Calories / Water
+   ========================================================= */
+let selectedGender = 'female';
+document.querySelectorAll('.gender-toggle button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.gender-toggle button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedGender = btn.dataset.gender;
+  });
+});
+
+function drawBmiGauge(bmi){
+  const svg = document.getElementById('bmiGauge');
+  const cx=110, cy=110, r=90;
+  // scale bmi 15-35 across 180deg (semi circle from 180deg to 0deg)
+  const clamped = Math.max(15, Math.min(35, bmi));
+  const pct = (clamped-15)/(35-15);
+  const angle = Math.PI - pct*Math.PI; // from PI(left) to 0(right)
+  const needleX = cx + r*0.8*Math.cos(angle);
+  const needleY = cy - r*0.8*Math.sin(angle);
+  const segs = [
+    {c:'#5ec8ff', from:0, to:0.23},   // thiếu cân
+    {c:'#3cdc96', from:0.23, to:0.5}, // bình thường
+    {c:'#ffcf4f', from:0.5, to:0.7},  // thừa cân
+    {c:'#ff6b6b', from:0.7, to:1}     // béo phì
+  ];
+  function arcPath(from,to){
+    const a1 = Math.PI - from*Math.PI, a2 = Math.PI - to*Math.PI;
+    const x1 = cx + r*Math.cos(a1), y1 = cy - r*Math.sin(a1);
+    const x2 = cx + r*Math.cos(a2), y2 = cy - r*Math.sin(a2);
+    return `M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`;
+  }
+  let arcs = segs.map(s=>`<path d="${arcPath(s.from,s.to)}" stroke="${s.c}" stroke-width="14" fill="none" stroke-linecap="round" opacity="0.85"/>`).join('');
+  svg.innerHTML = `${arcs}
+    <line x1="${cx}" y1="${cy}" x2="${needleX}" y2="${needleY}" stroke="#F8F8F8" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${cx}" cy="${cy}" r="6" fill="#FF4FA3"/>`;
+}
+
+function calcAssessment(){
+  const age = parseFloat(document.getElementById('inAge').value);
+  const height = parseFloat(document.getElementById('inHeight').value);
+  const weight = parseFloat(document.getElementById('inWeight').value);
+  const goal = document.getElementById('inGoal').value;
+  if(!age || !height || !weight){
+    alert('Vui lòng nhập đầy đủ tuổi, chiều cao và cân nặng.');
+    return;
+  }
+  const hM = height/100;
+  const bmi = weight/(hM*hM);
+
+  // Mifflin-St Jeor BMR
+  let bmr;
+  if(selectedGender==='female'){ bmr = 10*weight + 6.25*height - 5*age - 161; }
+  else { bmr = 10*weight + 6.25*height - 5*age + 5; }
+  const tdee = bmr * 1.375; // hoạt động nhẹ-vừa (tập gym 3-5 buổi/tuần)
+
+  const proteinLow = Math.round(weight*1.6);
+  const proteinHigh = Math.round(weight*2.0);
+  const calLose = Math.round(tdee*0.82);
+  const calGain = Math.round(tdee*1.1);
+  const water = Math.round(weight*0.035*10)/10;
+
+  let bmiLabel='', bmiColor='';
+  if(bmi<18.5){bmiLabel='Thiếu cân'; bmiColor='#5ec8ff';}
+  else if(bmi<23){bmiLabel='Bình thường'; bmiColor='#3cdc96';}
+  else if(bmi<25){bmiLabel='Thừa cân nhẹ'; bmiColor='#ffcf4f';}
+  else {bmiLabel='Béo phì'; bmiColor='#ff6b6b';}
+
+  document.getElementById('bmiValue').textContent = bmi.toFixed(1);
+  document.getElementById('bmiLabel').textContent = bmiLabel;
+  document.getElementById('bmiLabel').style.color = bmiColor;
+  document.getElementById('resProtein').textContent = `${proteinLow}-${proteinHigh}`;
+  document.getElementById('resTDEE').textContent = Math.round(tdee);
+  document.getElementById('resLose').textContent = calLose;
+  document.getElementById('resGain').textContent = calGain;
+  document.getElementById('resWater').textContent = water + ' L';
+  drawBmiGauge(bmi);
+  document.getElementById('resultCard').classList.add('show');
+}
+
+/* =========================================================
+   PROGRESS TRACKER — localStorage
+   ========================================================= */
+const TRACKER_KEY = 'fitness28_tracker_entries';
+function getTrackerEntries(){
+  try{ return JSON.parse(localStorage.getItem(TRACKER_KEY)) || []; }catch(e){ return []; }
+}
+function saveTrackerEntries(list){
+  localStorage.setItem(TRACKER_KEY, JSON.stringify(list));
+}
+function addTrackerEntry(){
+  const date = document.getElementById('trkDate').value;
+  const weight = document.getElementById('trkWeight').value;
+  const waist = document.getElementById('trkWaist').value;
+  const hip = document.getElementById('trkHip').value;
+  const thigh = document.getElementById('trkThigh').value;
+  const note = document.getElementById('trkNote').value;
+  if(!date){ alert('Vui lòng chọn ngày.'); return; }
+  const list = getTrackerEntries();
+  list.push({id:Date.now(), date, weight, waist, hip, thigh, note});
+  list.sort((a,b)=> new Date(a.date) - new Date(b.date));
+  saveTrackerEntries(list);
+  renderTracker();
+  ['trkDate','trkWeight','trkWaist','trkHip','trkThigh','trkNote'].forEach(id=>document.getElementById(id).value='');
+}
+function deleteTrackerEntry(id){
+  const list = getTrackerEntries().filter(e=>e.id!==id);
+  saveTrackerEntries(list);
+  renderTracker();
+}
+function renderTracker(){
+  const list = getTrackerEntries();
+  const body = document.getElementById('trackerBody');
+  if(list.length===0){
+    body.innerHTML = `<tr><td colspan="7" style="color:var(--muted);">Chưa có bản ghi nào. Thêm bản ghi đầu tiên của bạn ở trên.</td></tr>`;
+    return;
+  }
+  body.innerHTML = list.map(e=>`
+    <tr>
+      <td>${e.date}</td><td>${e.weight||'-'} kg</td><td>${e.waist||'-'} cm</td>
+      <td>${e.hip||'-'} cm</td><td>${e.thigh||'-'} cm</td><td>${e.note||'-'}</td>
+      <td><button onclick="deleteTrackerEntry(${e.id})">Xóa</button></td>
+    </tr>
+  `).join('');
+}
+
+/* =========================================================
+   CARDIO TIMER
+   ========================================================= */
+let timerSeconds = 20*60, timerInterval = null, timerRunning = false;
+document.querySelectorAll('.tmin').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    if(timerRunning) return;
+    document.querySelectorAll('.tmin').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    timerSeconds = parseInt(btn.dataset.min)*60;
+    updateTimerDisplay();
+  });
+});
+function updateTimerDisplay(){
+  const m = Math.floor(timerSeconds/60).toString().padStart(2,'0');
+  const s = (timerSeconds%60).toString().padStart(2,'0');
+  document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+}
+function timerStart(){
+  if(timerRunning) return;
+  timerRunning = true;
+  timerInterval = setInterval(()=>{
+    if(timerSeconds<=0){ timerPause(); return; }
+    timerSeconds--;
+    updateTimerDisplay();
+  },1000);
+}
+function timerPause(){
+  timerRunning = false;
+  clearInterval(timerInterval);
+}
+function timerReset(){
+  timerPause();
+  const activeBtn = document.querySelector('.tmin.active');
+  timerSeconds = activeBtn ? parseInt(activeBtn.dataset.min)*60 : 20*60;
+  updateTimerDisplay();
+}
+
+/* =========================================================
+   UX FEATURES — progress bar, nav active, reveal, back to top
+   ========================================================= */
+function updateReadProgress(){
+  const h = document.documentElement;
+  const scrolled = h.scrollTop;
+  const height = h.scrollHeight - h.clientHeight;
+  const pct = height>0 ? Math.min(100, Math.round((scrolled/height)*100)) : 0;
+  document.getElementById('readProgress').style.width = pct+'%';
+  document.getElementById('readProgressLabel').textContent = pct+'%';
+
+  // back to top
+  document.getElementById('backTop').classList.toggle('show', scrolled>500);
+}
+
+const revealEls = () => document.querySelectorAll('.reveal');
+function handleReveal(){
+  revealEls().forEach(el=>{
+    const rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight*0.88){ el.classList.add('in'); }
+  });
+}
+
+const sections = ['home','commit','knowledge','warmup','program','machines','nutrition','assessment','tracker','cardio','faq','contact'];
+const navLinks = document.querySelectorAll('.nav-link');
+function updateActiveNav(){
+  let current = sections[0];
+  for(const id of sections){
+    const el = document.getElementById(id);
+    if(el && el.getBoundingClientRect().top < window.innerHeight*0.4){ current = id; }
+  }
+  navLinks.forEach(a=>{
+    a.classList.toggle('active', a.dataset.target===current);
+  });
+}
+
+window.addEventListener('scroll', ()=>{
+  updateReadProgress();
+  handleReveal();
+  updateActiveNav();
+}, {passive:true});
+
+/* =========================================================
+   INIT
+   ========================================================= */
+function init(){
+  renderCommit();
+  renderKnowledge();
+  buildAccordion(document.getElementById('warmupAccordion'), warmups);
+  buildAccordion(document.getElementById('faqAccordion'), faqs);
+  renderWeekTabs();
+  renderDayTabs();
+  renderSession();
+  renderMachineFilter();
+  renderMachines();
+  renderNutrition();
+  renderTracker();
+  updateTimerDisplay();
+  updateReadProgress();
+  handleReveal();
+  updateActiveNav();
+
+  document.getElementById('machineSearch').addEventListener('input', renderMachines);
+  document.getElementById('machineFilter').addEventListener('change', renderMachines);
+
+  setTimeout(()=>{
+    document.getElementById('loadScreen').classList.add('hide');
+  }, 500);
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
